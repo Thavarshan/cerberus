@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:ignoreFile
+
 namespace App\Http\Middleware;
 
 use Illuminate\Support\Str;
@@ -50,15 +52,15 @@ class EnsureFrontendRequestsAreStateful
     protected function frontendMiddleware(): array
     {
         $middleware = array_values(array_filter(array_unique([
-            config('sanctum.middleware.encrypt_cookies', \Illuminate\Cookie\Middleware\EncryptCookies::class),
+            config('api.middleware.encrypt_cookies', \Illuminate\Cookie\Middleware\EncryptCookies::class),
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            config('sanctum.middleware.validate_csrf_token'),
-            config('sanctum.middleware.verify_csrf_token', \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class),
+            config('api.middleware.validate_csrf_token'),
+            config('api.middleware.verify_csrf_token', \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class),
         ])));
 
         array_unshift($middleware, function ($request, $next) {
-            $request->attributes->set('sanctum', true);
+            $request->attributes->set('api', true);
 
             return $next($request);
         });
