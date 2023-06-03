@@ -10,6 +10,7 @@ Route::get('/', static function () {
 
 Route::group([
     'middleware' => 'guest',
-], function () {
-    Route::post('/signin', AuthController::class . '@store')->name('signin');
+], function (): void {
+    Route::post('/login', AuthController::class . '@login')->name('login');
+    // Route::post('/register', RegisterController::class . '@register')->name('register');
 });

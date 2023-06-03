@@ -4,8 +4,9 @@ namespace Cerberus\Auth\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Cerberus\Auth\Support\Credentials;
 use Cerberus\Contracts\Auth\AuthService;
+use Cerberus\Auth\Http\Requests\LoginRequest;
+use Cerberus\Auth\Http\Responses\SigninResponse;
 
 class AuthController extends Controller
 {
@@ -31,14 +32,16 @@ class AuthController extends Controller
     /**
      * Authenticate user via credentials.
      *
-     * @param \Cerberus\Auth\Support\Credentials $credentials
+     * @param \Cerberus\Auth\Http\Requests\LoginRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Credentials $credentials): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
-        $user = $this->service->authenticateViaCredentials($credentials);
+        $user = $this->service->authenticateViaCredentials(
+            credentials: $request->credentials()
+        );
 
-        return new JsonResponse($user);
+        return SigninResponse::make($user);
     }
 }

@@ -32,7 +32,7 @@ class AuthenticationTest extends TestCase
 
     public function testAuthenticateViaCredentials(): void
     {
-        $response = $this->post('/signin', [
+        $response = $this->post('/login', [
             'email' => 'user@example.com',
             'password' => 'Password123!',
         ], [
@@ -45,6 +45,7 @@ class AuthenticationTest extends TestCase
         $this->assertEquals($this->user->id, $user->id);
         $this->assertEquals($this->user->name, $user->name);
         $this->assertEquals($this->user->email, $user->email);
+        $this->assertNotNull($user->token);
 
         $this->assertAuthenticated();
     }

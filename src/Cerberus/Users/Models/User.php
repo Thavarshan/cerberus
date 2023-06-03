@@ -113,7 +113,7 @@ class User extends Authenticatable implements UserInterface
      */
     public function setToken(Token $token): void
     {
-        $this->token = $token;
+        $this->setAttribute('token', $token->getValue());
     }
 
     /**
@@ -123,7 +123,7 @@ class User extends Authenticatable implements UserInterface
      */
     public function getToken(): Token
     {
-        return $this->token;
+        return $this->getAttribute('token');
     }
 
     /**

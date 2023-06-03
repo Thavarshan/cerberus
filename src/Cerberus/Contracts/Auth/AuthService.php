@@ -12,7 +12,7 @@ interface AuthService
      *
      * @param \Cerberus\Auth\Support\Credentials $credentials
      *
-     * @return \Cerberus\Contracts\Auth\User
+     * @return \Cerberus\Contracts\Users\User
      */
     public function authenticateViaCredentials(Credentials $credentials): User;
 }

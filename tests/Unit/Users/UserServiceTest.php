@@ -13,6 +13,8 @@ class UserServiceTest extends TestCase
 {
     public function tearDown(): void
     {
+        parent::tearDown();
+
         m::close();
     }
 
