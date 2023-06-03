@@ -2,6 +2,8 @@
 
 namespace Cerberus\Contracts\Users;
 
+use Cerberus\Users\DTO\UserDTO;
+
 interface UserService
 {
     /**
@@ -31,4 +33,32 @@ interface UserService
      * @return \Cerberus\Contracts\Users\User
      */
     public function findBy(string $key, string $value): User;
+
+    /**
+     * Create a new user.
+     *
+     * @param \Cerberus\Users\DTO\UserDTO $dto
+     *
+     * @return \Cerberus\Contracts\Users\User
+     */
+    public function create(UserDTO $dto): User;
+
+    /**
+     * Update an existing user.
+     *
+     * @param \Cerberus\Contracts\Users\User $user
+     * @param \Cerberus\Users\DTO\UserDTO    $dto
+     *
+     * @return \Cerberus\Contracts\Users\User
+     */
+    public function update(User $user, UserDTO $dto): User;
+
+    /**
+     * Delete an existing user.
+     *
+     * @param \Cerberus\Contracts\Users\User $user
+     *
+     * @return void
+     */
+    public function delete(User $user): void;
 }

@@ -2,6 +2,7 @@
 
 namespace Cerberus\Users\Repositories;
 
+use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
 use Cerberus\Contracts\AbstractRepository;
 use Cerberus\Contracts\Users\User as UserInterface;
@@ -56,5 +57,52 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     public function findBy(string $key, string $value): ?UserInterface
     {
         return $this->model->where($key, $value)->first();
+    }
+
+    /**
+     * Create a new user.
+     *
+     * @param \Cerberus\Users\DTO\UserDTO $dto
+     *
+     * @return \Cerberus\Contracts\Users\User
+     */
+    public function create(UserDTO $dto): UserInterface
+    {
+        return $this->model->create($dto->toArray());
+    }
+
+    /**
+     * Update an existing user.
+     *
+     * @param \Cerberus\Contracts\Users\User $user
+     * @param \Cerberus\Users\DTO\UserDTO    $dto
+     *
+     * @return \Cerberus\Contracts\Users\User
+     */
+    public function update(UserInterface $user, UserDTO $dto): UserInterface
+    {
+        return tap($user, function (UserInterface $user) use ($dto) {
+            $instance = $this->model->find($user->getId());
+
+            $instance->update($dto->toArray());
+
+            return $instance->fresh();
+        });
+    }
+
+    /**
+     * Delete an existing user.
+     *
+     * @param \Cerberus\Contracts\Users\User $user
+     *
+     * @return void
+     */
+    public function delete(UserInterface $user): void
+    {
+        tap($user->getId(), function (int $id) {
+            $instance = $this->model->find($id);
+
+            $instance->delete();
+        });
     }
 }

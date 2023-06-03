@@ -3,6 +3,7 @@
 namespace Tests\Unit\Users;
 
 use Mockery as m;
+use Cerberus\Users\DTO\UserDTO;
 use PHPUnit\Framework\TestCase;
 use Cerberus\Contracts\Users\User;
 use Cerberus\Users\Services\UserService;
@@ -45,5 +46,49 @@ class UserServiceTest extends TestCase
         $service = new UserService($repository);
 
         $service->findByEmail('john@example.com');
+    }
+
+    public function testCreateNewUser(): void
+    {
+        $dto = new UserDTO(['name' => 'John Doe']);
+        $user = m::mock(User::class);
+        $repository = m::mock(UserRepository::class);
+        $repository->shouldReceive('create')
+            ->once()
+            ->with($dto)
+            ->andReturn($user);
+
+        $service = new UserService($repository);
+
+        $this->assertSame($user, $service->create($dto));
+    }
+
+    public function testUpdateUser(): void
+    {
+        $dto = new UserDTO(['name' => 'John Doe']);
+        $user = m::mock(User::class);
+        $repository = m::mock(UserRepository::class);
+        $repository->shouldReceive('update')
+            ->once()
+            ->with($user, $dto)
+            ->andReturn($user);
+
+        $service = new UserService($repository);
+
+        $this->assertSame($user, $service->update($user, $dto));
+    }
+
+    public function testDeleteUser(): void
+    {
+        $user = m::mock(User::class);
+        $repository = m::mock(UserRepository::class);
+        $repository->shouldReceive('delete')
+            ->once()
+            ->with($user)
+            ->andReturnNull();
+
+        $service = new UserService($repository);
+
+        $this->assertNull($service->delete($user));
     }
 }

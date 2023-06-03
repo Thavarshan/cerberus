@@ -2,6 +2,7 @@
 
 namespace Cerberus\Users\Providers;
 
+use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +33,8 @@ class UserServiceProvider extends ServiceProvider
         $this->registerService();
 
         $this->registerUserRouteModelBinding();
+
+        $this->registerDTO();
     }
 
     /**
@@ -71,6 +74,20 @@ class UserServiceProvider extends ServiceProvider
             $service = $this->app->make(UserServiceInterface::class);
 
             return $service->findBy(User::keyName(), $value);
+        });
+    }
+
+    /**
+     * Register user DTO.
+     *
+     * @return void
+     */
+    public function registerDTO(): void
+    {
+        $this->app->singleton(UserDTO::class, function ($app) {
+            $request = $app->make(UserRequest::class);
+
+            return new UserDTO($request->validated());
         });
     }
 }

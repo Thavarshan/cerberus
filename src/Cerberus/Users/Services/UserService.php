@@ -2,6 +2,7 @@
 
 namespace Cerberus\Users\Services;
 
+use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Contracts\Users\User;
 use Cerberus\Contracts\AbstractService;
 use Cerberus\Contracts\Users\UserRepository;
@@ -76,5 +77,42 @@ class UserService extends AbstractService implements UserServiceInterface
         }
 
         throw UserNotFoundException::withKey($key, $value);
+    }
+
+    /**
+     * Create a new user.
+     *
+     * @param \Cerberus\Users\DTO\UserDTO $dto
+     *
+     * @return \Cerberus\Contracts\Users\User
+     */
+    public function create(UserDTO $dto): User
+    {
+        return $this->repository->create($dto);
+    }
+
+    /**
+     * Update an existing user.
+     *
+     * @param \Cerberus\Contracts\Users\User $user
+     * @param \Cerberus\Users\DTO\UserDTO    $dto
+     *
+     * @return \Cerberus\Contracts\Users\User
+     */
+    public function update(User $user, UserDTO $dto): User
+    {
+        return $this->repository->update($user, $dto);
+    }
+
+    /**
+     * Delete an existing user.
+     *
+     * @param \Cerberus\Contracts\Users\User $user
+     *
+     * @return void
+     */
+    public function delete(User $user): void
+    {
+        $this->repository->delete($user);
     }
 }
