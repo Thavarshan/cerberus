@@ -5,7 +5,6 @@ namespace Tests\Unit\Users;
 use Mockery as m;
 use Cerberus\Users\DTO\UserDTO;
 use PHPUnit\Framework\TestCase;
-use Cerberus\Contracts\Users\User;
 use Cerberus\Users\Services\UserService;
 use Cerberus\Contracts\Users\UserRepository;
 use Cerberus\Users\Exceptions\UserNotFoundException;
@@ -20,6 +19,20 @@ class UserServiceTest extends TestCase
         parent::tearDown();
 
         m::close();
+    }
+
+    public function testGetAllUsers(): void
+    {
+        $users = collect([]);
+        $repository = m::mock(UserRepository::class);
+        $repository->shouldReceive('all')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($users);
+
+        $service = new UserService($repository);
+
+        $this->assertSame($users, $service->all());
     }
 
     public function testFindUserByEmail(): void

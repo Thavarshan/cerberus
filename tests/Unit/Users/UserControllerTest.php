@@ -19,6 +19,26 @@ class UserControllerTest extends TestCase
         m::close();
     }
 
+    public function testGetAllUsers(): void
+    {
+        $users = [
+            new User(['name' => 'John Doe']),
+            new User(['name' => 'Jane Doe']),
+        ];
+        $service = m::mock(UserService::class);
+        $service->shouldReceive('all')
+            ->once()
+            ->andReturn(collect($users));
+
+        $controller = new UserController($service);
+        $response = $controller->index();
+        $data = $response->getData();
+
+        $this->assertCount(2, $data);
+        $this->assertEquals('John Doe', $data[0]->name);
+        $this->assertEquals('Jane Doe', $data[1]->name);
+    }
+
     public function testGetSpecificUser(): void
     {
         $user = new User(['name' => 'John Doe']);

@@ -20,6 +20,20 @@ class UserRepositoryTest extends TestCase
         m::close();
     }
 
+    public function testGetAllUsers(): void
+    {
+        $users = collect([]);
+        $user = m::mock(User::class);
+        $user->shouldReceive('all')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($users);
+
+        $service = new UserRepository($user);
+
+        $this->assertSame($users, $service->all());
+    }
+
     public function testFindUserByEmail(): void
     {
         $user = m::mock(User::class);
