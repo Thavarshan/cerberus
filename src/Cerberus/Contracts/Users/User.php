@@ -50,7 +50,7 @@ interface User extends Authenticatable, Entity
     /**
      * Get user's auth token.
      *
-     * @return \Cerberus\Auth\Tokens\Token
+     * @return string
      */
-    public function getToken(): Token;
+    public function getToken(): string;
 }

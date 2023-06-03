@@ -8,6 +8,9 @@ use Cerberus\Users\Models\User;
 use PHPUnit\Framework\TestCase;
 use Cerberus\Users\Repositories\UserRepository;
 
+/**
+ * @group Users
+ */
 class UserRepositoryTest extends TestCase
 {
     public function tearDown(): void

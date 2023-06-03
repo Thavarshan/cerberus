@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 use Cerberus\Contracts\Users\UserService;
 use Cerberus\Users\Http\Controllers\UserController;
 
+/**
+ * @group Users
+ */
 class UserControllerTest extends TestCase
 {
     public function tearDown(): void

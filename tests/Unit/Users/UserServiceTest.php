@@ -10,6 +10,9 @@ use Cerberus\Users\Services\UserService;
 use Cerberus\Contracts\Users\UserRepository;
 use Cerberus\Users\Exceptions\UserNotFoundException;
 
+/**
+ * @group Users
+ */
 class UserServiceTest extends TestCase
 {
     public function tearDown(): void
