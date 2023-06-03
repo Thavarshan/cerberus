@@ -32,6 +32,18 @@ class UserController extends Controller
     }
 
     /**
+     * Get all users.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        $users = $this->service->all();
+
+        return new JsonResponse($users);
+    }
+
+    /**
      * Get currently authenticated user.
      *
      * @param \Cerberus\Users\Models\User $user

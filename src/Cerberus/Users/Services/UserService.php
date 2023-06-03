@@ -4,6 +4,7 @@ namespace Cerberus\Users\Services;
 
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Contracts\Users\User;
+use Illuminate\Support\Collection;
 use Cerberus\Contracts\AbstractService;
 use Cerberus\Contracts\Users\UserRepository;
 use Cerberus\Users\Exceptions\UserNotFoundException;
@@ -28,6 +29,16 @@ class UserService extends AbstractService implements UserServiceInterface
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    /**
+     * Get all users.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function all(): Collection
+    {
+        return $this->repository->all();
     }
 
     /**

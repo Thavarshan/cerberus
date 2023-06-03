@@ -3,9 +3,17 @@
 namespace Cerberus\Contracts\Users;
 
 use Cerberus\Users\DTO\UserDTO;
+use Illuminate\Support\Collection;
 
 interface UserService
 {
+    /**
+     * Get all users.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function all(): Collection;
+
     /**
      * Find a user by their email address.
      *

@@ -4,6 +4,7 @@ namespace Cerberus\Users\Repositories;
 
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
+use Illuminate\Support\Collection;
 use Cerberus\Contracts\AbstractRepository;
 use Cerberus\Contracts\Users\User as UserInterface;
 use Cerberus\Contracts\Users\UserRepository as UserRepositoryInterface;
@@ -20,6 +21,16 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     public function __construct(User $model)
     {
         parent::__construct($model);
+    }
+
+    /**
+     * Get all users.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function all(): Collection
+    {
+        return $this->model->all();
     }
 
     /**
