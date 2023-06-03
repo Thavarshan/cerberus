@@ -4,6 +4,9 @@ namespace Tests\Unit\Auth;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group Auth
+ */
 class TokenAuthenticatorTest extends TestCase
 {
     /**

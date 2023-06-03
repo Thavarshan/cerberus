@@ -6,6 +6,9 @@ use Cerberus\Tests\TestCase;
 use Illuminate\Http\Request;
 use App\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
+/**
+ * @group API
+ */
 class EnsureFrontendRequestsAreStatefulTest extends TestCase
 {
     public function setUp(): void

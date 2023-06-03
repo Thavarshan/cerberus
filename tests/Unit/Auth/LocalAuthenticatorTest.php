@@ -9,6 +9,9 @@ use Cerberus\Auth\Support\Credentials;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Cerberus\Auth\Authenticators\LocalAuthenticator;
 
+/**
+ * @group Auth
+ */
 class LocalAuthenticatorTest extends TestCase
 {
     public function tearDown(): void

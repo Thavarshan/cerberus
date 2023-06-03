@@ -6,6 +6,9 @@ use Cerberus\Tests\TestCase;
 use Cerberus\Auth\Tokens\Token;
 use Cerberus\Users\Models\User;
 
+/**
+ * @group Users
+ */
 class UserTest extends TestCase
 {
     public function testGetRouteKeyName(): void

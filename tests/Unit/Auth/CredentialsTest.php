@@ -5,6 +5,9 @@ namespace Tests\Unit\Auth;
 use PHPUnit\Framework\TestCase;
 use Cerberus\Auth\Support\Credentials;
 
+/**
+ * @group Auth
+ */
 class CredentialsTest extends TestCase
 {
     public function testGetSpecificDetail(): void
