@@ -2,6 +2,9 @@
 
 namespace Cerberus\Users\Exceptions;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
 class UserNotFoundException extends \Exception
 {
     /**
@@ -39,5 +42,17 @@ class UserNotFoundException extends \Exception
     public static function withKey(string $key, string $value): static
     {
         return new static("A user with the {$key} `{$value}` could not be found.");
+    }
+
+    /**
+     * Render the exception into an HTTP response.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function render(Request $request): Response
+    {
+        return response($this->getMessage(), 404);
     }
 }

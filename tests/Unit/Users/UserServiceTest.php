@@ -4,6 +4,7 @@ namespace Tests\Unit\Users;
 
 use Mockery as m;
 use Cerberus\Users\DTO\UserDTO;
+use Cerberus\Users\Models\User;
 use PHPUnit\Framework\TestCase;
 use Cerberus\Users\Services\UserService;
 use Cerberus\Contracts\Users\UserRepository;
