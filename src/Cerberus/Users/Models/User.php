@@ -7,6 +7,7 @@ namespace Cerberus\Users\Models;
 use Cerberus\Auth\Tokens\Token;
 use Illuminate\Notifications\Notifiable;
 use Cerberus\Contracts\Users\User as UserInterface;
+use Cerberus\Support\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -14,6 +15,7 @@ class User extends Authenticatable implements UserInterface
 {
     use HasFactory;
     use Notifiable;
+    use Filterable;
 
     /**
      * The attributes that are mass assignable.
