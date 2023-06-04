@@ -6,6 +6,7 @@ use Cerberus\Users\DTO\UserDTO;
 use Illuminate\Http\JsonResponse;
 use Cerberus\Contracts\Users\User;
 use Illuminate\Routing\Controller;
+use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Contracts\Users\UserService;
 
 class UserController extends Controller
@@ -32,13 +33,15 @@ class UserController extends Controller
     }
 
     /**
-     * Get all users.
+     * Get a listing of users with filters applied.
+     *
+     * @param \Cerberus\Contracts\Users\UserFilter $filter
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(UserFilter $filter): JsonResponse
     {
-        $users = $this->service->all();
+        $users = $this->service->list($filter);
 
         return new JsonResponse($users);
     }

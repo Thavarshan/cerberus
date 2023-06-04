@@ -8,11 +8,13 @@ use Illuminate\Support\Collection;
 interface UserService
 {
     /**
-     * Get all users.
+     * Get a list of users with filters applied.
+     *
+     * @param \Cerberus\Contracts\Users\UserFilter $filter
      *
      * @return \Illuminate\Support\Collection
      */
-    public function all(): Collection;
+    public function list(UserFilter $filter): Collection;
 
     /**
      * Find a user by their email address.

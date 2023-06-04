@@ -5,9 +5,11 @@ namespace Cerberus\Users\Providers;
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
 use Illuminate\Support\Facades\Route;
+use Cerberus\Users\Filters\UserFilter;
 use Illuminate\Support\ServiceProvider;
 use Cerberus\Users\Services\UserService;
 use Cerberus\Users\Repositories\UserRepository;
+use Cerberus\Contracts\Users\UserFilter as UserFilterInterface;
 use Cerberus\Contracts\Users\UserService as UserServiceInterface;
 use Cerberus\Contracts\Users\UserRepository as UserRepositoryInterface;
 
@@ -29,12 +31,13 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->registerRepository();
-        $this->registerService();
-
         $this->registerUserRouteModelBinding();
 
-        $this->registerDTO();
+        $this->registerFilters();
+        $this->registerRepositories();
+        $this->registerServices();
+
+        $this->registerDTOs();
     }
 
     /**
@@ -42,7 +45,7 @@ class UserServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerRepository(): void
+    public function registerRepositories(): void
     {
         $this->app->singleton(UserRepositoryInterface::class, function ($app) {
             return new UserRepository($app->make(User::class));
@@ -54,12 +57,24 @@ class UserServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerService(): void
+    public function registerServices(): void
     {
         $this->app->singleton(UserServiceInterface::class, function ($app) {
             return new UserService(
                 $app->make(UserRepositoryInterface::class)
             );
+        });
+    }
+
+    /**
+     * Register user filters.
+     *
+     * @return void
+     */
+    public function registerFilters(): void
+    {
+        $this->app->singleton(UserFilterInterface::class, function ($app) {
+            return new UserFilter($app->make('request'));
         });
     }
 
@@ -82,7 +97,7 @@ class UserServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerDTO(): void
+    public function registerDTOs(): void
     {
         $this->app->singleton(UserDTO::class, function ($app) {
             $request = $app->make(UserRequest::class);

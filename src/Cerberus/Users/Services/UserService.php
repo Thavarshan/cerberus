@@ -6,6 +6,7 @@ use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Contracts\Users\User;
 use Illuminate\Support\Collection;
 use Cerberus\Contracts\AbstractService;
+use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Contracts\Users\UserRepository;
 use Cerberus\Users\Exceptions\UserNotFoundException;
 use Cerberus\Contracts\Users\UserService as UserServiceInterface;
@@ -32,13 +33,15 @@ class UserService extends AbstractService implements UserServiceInterface
     }
 
     /**
-     * Get all users.
+     * Get a listing of users with filters applied.
+     *
+     * @param \Cerberus\Contracts\Users\UserFilter $filter
      *
      * @return \Illuminate\Support\Collection
      */
-    public function all(): Collection
+    public function list(UserFilter $filter): Collection
     {
-        return $this->repository->all();
+        return $this->repository->list($filter);
     }
 
     /**

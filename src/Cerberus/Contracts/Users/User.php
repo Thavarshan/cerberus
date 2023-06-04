@@ -4,9 +4,10 @@ namespace Cerberus\Contracts\Users;
 
 use Cerberus\Contracts\Entity;
 use Cerberus\Auth\Tokens\Token;
+use Cerberus\Contracts\Filterable;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-interface User extends Authenticatable, Entity
+interface User extends Authenticatable, Entity, Filterable
 {
     /**
      * Get user's ID.

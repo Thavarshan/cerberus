@@ -9,11 +9,13 @@ use Cerberus\Contracts\Users\User as UserInterface;
 interface UserRepository
 {
     /**
-     * Get all users.
+     * Get a listing of users with filters applied.
+     *
+     * @param \Cerberus\Contracts\Users\UserFilter $filter
      *
      * @return \Illuminate\Support\Collection
      */
-    public function all(): Collection;
+    public function list(UserFilter $filter): Collection;
 
     /**
      * Find user by email.

@@ -6,6 +6,7 @@ use Mockery as m;
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
 use PHPUnit\Framework\TestCase;
+use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Users\Services\UserService;
 use Cerberus\Contracts\Users\UserRepository;
 use Cerberus\Users\Exceptions\UserNotFoundException;
@@ -25,15 +26,16 @@ class UserServiceTest extends TestCase
     public function testGetAllUsers(): void
     {
         $users = collect([]);
+        $filter = m::mock(UserFilter::class);
         $repository = m::mock(UserRepository::class);
-        $repository->shouldReceive('all')
+        $repository->shouldReceive('list')
             ->once()
-            ->withNoArgs()
+            ->with($filter)
             ->andReturn($users);
 
         $service = new UserService($repository);
 
-        $this->assertSame($users, $service->all());
+        $this->assertSame($users, $service->list($filter));
     }
 
     public function testFindUserByEmail(): void

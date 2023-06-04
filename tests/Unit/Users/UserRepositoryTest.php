@@ -6,6 +6,7 @@ use Mockery as m;
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
 use PHPUnit\Framework\TestCase;
+use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Users\Repositories\UserRepository;
 
 /**
@@ -23,15 +24,20 @@ class UserRepositoryTest extends TestCase
     public function testGetAllUsers(): void
     {
         $users = collect([]);
+        $filter = m::mock(UserFilter::class);
         $user = m::mock(User::class);
-        $user->shouldReceive('all')
+        $user->shouldReceive('filter')
+            ->once()
+            ->with($filter)
+            ->andReturnSelf();
+        $user->shouldReceive('get')
             ->once()
             ->withNoArgs()
             ->andReturn($users);
 
-        $service = new UserRepository($user);
+        $respository = new UserRepository($user);
 
-        $this->assertSame($users, $service->all());
+        $this->assertSame($users, $respository->list($filter));
     }
 
     public function testFindUserByEmail(): void
@@ -42,9 +48,9 @@ class UserRepositoryTest extends TestCase
             ->with('john@example.com')
             ->andReturnSelf();
 
-        $service = new UserRepository($user);
+        $respository = new UserRepository($user);
 
-        $this->assertSame($user, $service->findByEmail('john@example.com'));
+        $this->assertSame($user, $respository->findByEmail('john@example.com'));
     }
 
     public function testFindUserByEmailReturnsNullIfNotFound(): void
@@ -55,9 +61,9 @@ class UserRepositoryTest extends TestCase
             ->with('john@example.com')
             ->andReturn(null);
 
-        $service = new UserRepository($user);
+        $respository = new UserRepository($user);
 
-        $this->assertNull($service->findByEmail('john@example.com'));
+        $this->assertNull($respository->findByEmail('john@example.com'));
     }
 
     public function testCreateNewUser(): void
@@ -69,9 +75,9 @@ class UserRepositoryTest extends TestCase
             ->with(['name' => 'John Doe'])
             ->andReturn($user);
 
-        $service = new UserRepository($user);
+        $respository = new UserRepository($user);
 
-        $this->assertSame($user, $service->create($dto));
+        $this->assertSame($user, $respository->create($dto));
     }
 
     public function testUpdateUser(): void
@@ -94,9 +100,9 @@ class UserRepositoryTest extends TestCase
             ->once()
             ->andReturn(new User($details));
 
-        $service = new UserRepository($user);
+        $respository = new UserRepository($user);
 
-        $this->assertSame($user, $service->update($user, $dto));
+        $this->assertSame($user, $respository->update($user, $dto));
     }
 
     public function testDeleteUser(): void
@@ -113,8 +119,8 @@ class UserRepositoryTest extends TestCase
             ->once()
             ->andReturn(true);
 
-        $service = new UserRepository($user);
+        $respository = new UserRepository($user);
 
-        $this->assertNull($service->delete($user));
+        $this->assertNull($respository->delete($user));
     }
 }

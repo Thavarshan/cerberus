@@ -6,6 +6,7 @@ use Mockery as m;
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
 use PHPUnit\Framework\TestCase;
+use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Contracts\Users\UserService;
 use Cerberus\Users\Http\Controllers\UserController;
 
@@ -25,13 +26,15 @@ class UserControllerTest extends TestCase
             new User(['name' => 'John Doe']),
             new User(['name' => 'Jane Doe']),
         ];
+        $filter = m::mock(UserFilter::class);
         $service = m::mock(UserService::class);
-        $service->shouldReceive('all')
+        $service->shouldReceive('list')
             ->once()
+            ->with($filter)
             ->andReturn(collect($users));
 
         $controller = new UserController($service);
-        $response = $controller->index();
+        $response = $controller->index($filter);
         $data = $response->getData();
 
         $this->assertCount(2, $data);
