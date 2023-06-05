@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Cerberus\Users\Filters\UserFilter;
 use Illuminate\Support\ServiceProvider;
 use Cerberus\Users\Services\UserService;
+use Cerberus\Users\Http\Requests\UserRequest;
 use Cerberus\Users\Repositories\UserRepository;
 use Cerberus\Contracts\Users\UserFilter as UserFilterInterface;
 use Cerberus\Contracts\Users\UserService as UserServiceInterface;

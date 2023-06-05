@@ -2,8 +2,8 @@
 
 namespace Cerberus\Auth\Http\Controllers;
 
+use Cerberus\Users\DTO\UserDTO;
 use Illuminate\Http\JsonResponse;
-use Cerberus\Users\Http\Requests\UserRequest;
 use Cerberus\Users\Http\Controllers\UserController;
 
 class RegisterController extends UserController
@@ -11,12 +11,12 @@ class RegisterController extends UserController
     /**
      * Register a new user.
      *
-     * @param \Cerberus\Users\Http\Requests\UserRequest $request
+     * @param \Cerberus\Users\DTO\UserDTO $dto
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(UserRequest $request): JsonResponse
+    public function register(UserDTO $dto): JsonResponse
     {
-        return $this->store($request);
+        return $this->store($dto);
     }
 }

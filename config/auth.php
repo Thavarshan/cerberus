@@ -39,6 +39,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'token' => [
+            'driver' => 'patoken',
+            'provider' => 'users',
+        ],
+
+        'jwt' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
     ],
 
     /*

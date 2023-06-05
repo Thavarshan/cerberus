@@ -5,7 +5,7 @@
 namespace Cerberus\Auth\Rules;
 
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Rule;
 
 class PasswordRule implements Rule
 {
@@ -52,7 +52,7 @@ class PasswordRule implements Rule
      *
      * @return bool
      */
-    public function passes(string $attribute, mixed $value): bool
+    public function passes($attribute, $value)
     {
         $value = is_scalar($value) ? (string) $value : '';
 
