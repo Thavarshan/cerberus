@@ -5,10 +5,10 @@ namespace Cerberus\Users\Services;
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Contracts\Users\User;
 use Illuminate\Support\Collection;
-use Cerberus\Contracts\AbstractService;
 use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Contracts\Users\UserRepository;
 use Cerberus\Users\Exceptions\UserNotFoundException;
+use Cerberus\Shared\Persistence\Services\AbstractService;
 use Cerberus\Contracts\Users\UserService as UserServiceInterface;
 
 class UserService extends AbstractService implements UserServiceInterface

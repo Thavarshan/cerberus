@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerberus\Contracts;
+namespace Cerberus\Shared\Persistence\Filters;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;

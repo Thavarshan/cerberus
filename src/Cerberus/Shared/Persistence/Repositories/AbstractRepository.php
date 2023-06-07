@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerberus\Contracts;
+namespace Cerberus\Shared\Persistence\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 

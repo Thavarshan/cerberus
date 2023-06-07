@@ -1,11 +1,11 @@
 <?php
 
-namespace Cerberus\Support;
+namespace Cerberus\Contracts\Shared;
 
-use Cerberus\Contracts\AbstractFilter;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Cerberus\Shared\Persistence\Filters\AbstractFilter;
 
-trait Filterable
+interface Filterable
 {
     /**
      * Apply all relevant space filters.
@@ -15,8 +15,5 @@ trait Filterable
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFilter($query, AbstractFilter $filters): Builder
-    {
-        return $filters->apply($query);
-    }
+    public function scopeFilter($query, AbstractFilter $filters): Builder;
 }

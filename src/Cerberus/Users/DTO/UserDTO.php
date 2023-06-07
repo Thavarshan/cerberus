@@ -2,7 +2,7 @@
 
 namespace Cerberus\Users\DTO;
 
-use Cerberus\Contracts\DTO;
+use Cerberus\Shared\Persistence\DTO\DTO;
 
 class UserDTO extends DTO
 {

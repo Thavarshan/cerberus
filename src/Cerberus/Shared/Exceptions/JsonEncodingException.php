@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace Cerberus\Shared\Exceptions;
 
 use Cerberus\Contracts\DTO;
 use Illuminate\Database\Eloquent\JsonEncodingException as EloquentJsonEncodingException;

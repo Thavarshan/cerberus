@@ -1,6 +1,8 @@
 <?php
 
-namespace Cerberus\Contracts;
+namespace Cerberus\Shared\Persistence\Services;
+
+use Cerberus\Shared\Persistence\Repositories\AbstractRepository;
 
 abstract class AbstractService
 {

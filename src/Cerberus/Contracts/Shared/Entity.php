@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerberus\Contracts;
+namespace Cerberus\Contracts\Shared;
 
 use ArrayAccess;
 use JsonSerializable;

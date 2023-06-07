@@ -1,18 +1,18 @@
 <?php
 
-namespace Cerberus\Support;
+namespace Cerberus\Shared\Persistence\Models\Traits;
 
 trait Fillable
 {
     /**
      * Filter and etract only data allowable to be changed.
      *
-     * @param array                                  $data
-     * @param \Cerberus\Contracts\Entity|string|null $resource
+     * @param array                                           $data
+     * @param \Illuminate\Database\Eloquent\Model|string|null $resource
      *
      * @return array
      */
-    public function filterFillable(array $data, mixed $resource = null): array
+    public function filterFillable(array $data, $resource = null): array
     {
         if (is_null($resource)) {
             $resource = $this;

@@ -7,9 +7,9 @@ namespace Cerberus\Users\Models;
 use Cerberus\Auth\Tokens\Token;
 use Illuminate\Notifications\Notifiable;
 use Cerberus\Contracts\Users\User as UserInterface;
-use Cerberus\Support\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cerberus\Shared\Persistence\Filters\Traits\Filterable;
 
 class User extends Authenticatable implements UserInterface
 {

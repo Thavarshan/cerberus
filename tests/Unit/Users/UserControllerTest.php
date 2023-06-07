@@ -3,9 +3,9 @@
 namespace Cerberus\Tests\Unit\Users;
 
 use Mockery as m;
+use Cerberus\Tests\TestCase;
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
-use PHPUnit\Framework\TestCase;
 use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Contracts\Users\UserService;
 use Cerberus\Users\Http\Controllers\UserController;
@@ -35,7 +35,7 @@ class UserControllerTest extends TestCase
 
         $controller = new UserController($service);
         $response = $controller->index($filter);
-        $data = $response->getData();
+        $data = $response->content();
 
         $this->assertCount(2, $data);
         $this->assertEquals('John Doe', $data[0]->name);
@@ -49,7 +49,7 @@ class UserControllerTest extends TestCase
 
         $controller = new UserController($service);
         $response = $controller->show($user);
-        $data = $response->getData();
+        $data = $response->content();
 
         $this->assertEquals($user->name, $data->name);
     }
@@ -66,7 +66,7 @@ class UserControllerTest extends TestCase
 
         $controller = new UserController($service);
         $response = $controller->store($dto);
-        $data = $response->getData();
+        $data = $response->content();
 
         $this->assertEquals('John Doe', $data->name);
     }
@@ -84,7 +84,7 @@ class UserControllerTest extends TestCase
 
         $controller = new UserController($service);
         $response = $controller->update($user, $dto);
-        $data = $response->getData();
+        $data = $response->content();
 
         $this->assertEquals('James Doe', $data->name);
     }
@@ -100,7 +100,7 @@ class UserControllerTest extends TestCase
 
         $controller = new UserController($service);
         $response = $controller->delete($user);
-        $data = $response->getData();
+        $data = $response->content();
 
         $this->assertEmpty((array) $data);
     }

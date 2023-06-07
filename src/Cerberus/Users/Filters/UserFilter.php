@@ -2,7 +2,7 @@
 
 namespace Cerberus\Users\Filters;
 
-use Cerberus\Contracts\AbstractFilter;
+use Cerberus\Shared\Persistence\Filters\AbstractFilter;
 use Cerberus\Contracts\Users\UserFilter as UserFilterInterface;
 
 class UserFilter extends AbstractFilter implements UserFilterInterface

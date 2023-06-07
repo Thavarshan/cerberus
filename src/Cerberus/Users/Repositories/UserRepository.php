@@ -5,9 +5,10 @@ namespace Cerberus\Users\Repositories;
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Cerberus\Contracts\Users\UserFilter;
-use Cerberus\Contracts\AbstractRepository;
 use Cerberus\Contracts\Users\User as UserInterface;
+use Cerberus\Shared\Persistence\Repositories\AbstractRepository;
 use Cerberus\Contracts\Users\UserRepository as UserRepositoryInterface;
 
 class UserRepository extends AbstractRepository implements UserRepositoryInterface
@@ -82,7 +83,9 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      */
     public function create(UserDTO $dto): UserInterface
     {
-        return $this->model->create($dto->toArray());
+        return DB::transaction(function () use ($dto) {
+            return $this->model->create($dto->toArray());
+        });
     }
 
     /**

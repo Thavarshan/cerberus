@@ -6,7 +6,7 @@ use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-class TokenGuard implements Guard
+class PATGuard implements Guard
 {
     use GuardHelpers;
 

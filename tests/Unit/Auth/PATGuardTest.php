@@ -2,13 +2,21 @@
 
 namespace Tests\Unit\Auth;
 
+use Mockery as m;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @group Auth
  */
-class TokenAuthenticatorTest extends TestCase
+class PATGuardTest extends TestCase
 {
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        m::close();
+    }
+
     /**
      * A basic unit test example.
      */

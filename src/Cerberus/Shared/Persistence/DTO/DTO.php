@@ -1,11 +1,11 @@
 <?php
 
-namespace Cerberus\Contracts;
+namespace Cerberus\Shared\Persistence\DTO;
 
-use Cerberus\Support\Fillable;
 use App\Exceptions\JsonEncodingException;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
+use Cerberus\Shared\Persistence\Models\Traits\Fillable;
 
 abstract class DTO implements Arrayable, \ArrayAccess, Jsonable, \JsonSerializable
 {

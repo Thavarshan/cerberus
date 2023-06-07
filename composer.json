@@ -34,7 +34,10 @@
     "autoload-dev": {
         "psr-4": {
             "Cerberus\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "tests/Support/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

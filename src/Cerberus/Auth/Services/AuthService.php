@@ -3,10 +3,10 @@
 namespace Cerberus\Auth\Services;
 
 use Cerberus\Auth\Support\Credentials;
-use Cerberus\Contracts\AbstractService;
 use Cerberus\Auth\Tokens\TransientToken;
 use Cerberus\Contracts\Auth\Authenticator;
 use Cerberus\Contracts\Users\User as UserInterface;
+use Cerberus\Shared\Persistence\Services\AbstractService;
 use Cerberus\Contracts\Auth\AuthService as AuthServiceInterface;
 use Cerberus\Contracts\Users\UserRepository as UserRepositoryInterface;
 

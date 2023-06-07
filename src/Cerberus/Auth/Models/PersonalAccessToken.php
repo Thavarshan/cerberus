@@ -2,8 +2,8 @@
 
 namespace Cerberus\Auth\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Cerberus\Contracts\Auth\HasAbilities;
+use Cerberus\Shared\Persistence\Models\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class PersonalAccessToken extends Model implements HasAbilities

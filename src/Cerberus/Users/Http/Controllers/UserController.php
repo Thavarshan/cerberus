@@ -3,11 +3,16 @@
 namespace Cerberus\Users\Http\Controllers;
 
 use Cerberus\Users\DTO\UserDTO;
-use Illuminate\Http\JsonResponse;
 use Cerberus\Contracts\Users\User;
 use Illuminate\Routing\Controller;
 use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Contracts\Users\UserService;
+use Cerberus\Contracts\Shared\Responsable;
+use Cerberus\Users\Http\Responses\UserResponse;
+use Cerberus\Users\Http\Responses\StoreUserResponse;
+use Cerberus\Users\Http\Responses\DeleteUserResponse;
+use Cerberus\Users\Http\Responses\UpdateUserResponse;
+use Cerberus\Users\Http\Responses\UserCollectionResponse;
 
 class UserController extends Controller
 {
@@ -37,13 +42,13 @@ class UserController extends Controller
      *
      * @param \Cerberus\Contracts\Users\UserFilter $filter
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Support\Responsable
      */
-    public function index(UserFilter $filter): JsonResponse
+    public function index(UserFilter $filter): Responsable
     {
         $users = $this->service->list($filter);
 
-        return new JsonResponse($users);
+        return UserCollectionResponse::dispatch($users);
     }
 
     /**
@@ -51,11 +56,11 @@ class UserController extends Controller
      *
      * @param \Cerberus\Users\Models\User $user
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Support\Responsable
      */
-    public function show(User $user): JsonResponse
+    public function show(User $user): Responsable
     {
-        return new JsonResponse($user);
+        return UserResponse::dispatch($user);
     }
 
     /**
@@ -63,13 +68,13 @@ class UserController extends Controller
      *
      * @param \Cerberus\Users\DTO\UserDTO $dto
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Support\Responsable
      */
-    public function store(UserDTO $dto): JsonResponse
+    public function store(UserDTO $dto): Responsable
     {
         $user = $this->service->create($dto);
 
-        return new JsonResponse($user);
+        return StoreUserResponse::dispatch($user);
     }
 
     /**
@@ -78,13 +83,13 @@ class UserController extends Controller
      * @param \Cerberus\Users\Models\User $user
      * @param \Cerberus\Users\DTO\UserDTO $dto
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Support\Responsable
      */
-    public function update(User $user, UserDTO $dto): JsonResponse
+    public function update(User $user, UserDTO $dto): Responsable
     {
         $user = $this->service->update($user, $dto);
 
-        return new JsonResponse($user);
+        return UpdateUserResponse::dispatch($user);
     }
 
     /**
@@ -92,12 +97,12 @@ class UserController extends Controller
      *
      * @param \Cerberus\Users\Models\User $user
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Support\Responsable
      */
-    public function delete(User $user): JsonResponse
+    public function delete(User $user): Responsable
     {
         $this->service->delete($user);
 
-        return new JsonResponse(null, 204);
+        return DeleteUserResponse::dispatch();
     }
 }
