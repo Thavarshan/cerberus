@@ -13,7 +13,7 @@ class GetUsersTest extends UserTestCase
 
         $this->createUser(5);
 
-        $response = $this->actingAs($user)->get('/users');
+        $response = $this->actingAs($user)->getJson('/users');
         $response->assertStatus(200);
         $data = $response->json();
 

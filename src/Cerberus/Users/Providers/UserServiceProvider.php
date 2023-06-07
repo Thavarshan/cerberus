@@ -4,12 +4,16 @@ namespace Cerberus\Users\Providers;
 
 use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
+use Cerberus\Users\DTO\StoreUserDTO;
+use Cerberus\Users\DTO\UpdateUserDTO;
 use Illuminate\Support\Facades\Route;
 use Cerberus\Users\Filters\UserFilter;
 use Illuminate\Support\ServiceProvider;
 use Cerberus\Users\Services\UserService;
 use Cerberus\Users\Http\Requests\UserRequest;
 use Cerberus\Users\Repositories\UserRepository;
+use Cerberus\Users\Http\Requests\StoreUserRequest;
+use Cerberus\Users\Http\Requests\UpdateUserRequest;
 use Cerberus\Contracts\Users\UserFilter as UserFilterInterface;
 use Cerberus\Contracts\Users\UserService as UserServiceInterface;
 use Cerberus\Contracts\Users\UserRepository as UserRepositoryInterface;
@@ -104,6 +108,18 @@ class UserServiceProvider extends ServiceProvider
             $request = $app->make(UserRequest::class);
 
             return new UserDTO($request->validated());
+        });
+
+        $this->app->singleton(StoreUserDTO::class, function ($app) {
+            $request = $app->make(StoreUserRequest::class);
+
+            return new StoreUserDTO($request->validated());
+        });
+
+        $this->app->singleton(UpdateUserDTO::class, function ($app) {
+            $request = $app->make(UpdateUserRequest::class);
+
+            return new UpdateUserDTO($request->validated());
         });
     }
 }

@@ -12,7 +12,7 @@ class GetUserTest extends UserTestCase
         $user = $this->createUser();
 
         $this->actingAs($user)
-            ->get("/users/{$user->username}")
+            ->getJson("/users/{$user->username}")
             ->assertStatus(200)
             ->assertJson([
                 'id' => $user->id,
@@ -26,7 +26,7 @@ class GetUserTest extends UserTestCase
         $user = $this->createUser();
 
         $this->actingAs($user)
-            ->get('/users/fake-username')
+            ->getJson('/users/fake-username')
             ->assertStatus(404);
     }
 }

@@ -7,13 +7,25 @@ namespace Cerberus\Tests\Feature\Users;
  */
 class DeleteUserTest extends UserTestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function testExample(): void
+    public function testDeleteUser(): void
     {
-        $response = $this->get('/');
+        $user = $this->createUser();
 
-        $response->assertStatus(200);
+        $this->assertDatabaseHas('users', [
+            'name' => $user->name,
+            'username' => $user->username,
+            'email' => $user->email,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->deleteJson("/users/{$user->username}");
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => $user->name,
+            'username' => $user->username,
+            'email' => $user->email,
+        ]);
     }
 }

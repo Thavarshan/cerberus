@@ -54,4 +54,11 @@ interface User extends Authenticatable, Entity, Filterable
      * @return string
      */
     public function getToken(): string;
+
+    /**
+     * Reload the current model instance with fresh attributes from the database.
+     *
+     * @return $this
+     */
+    public function refresh();
 }

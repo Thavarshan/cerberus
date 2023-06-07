@@ -2,9 +2,10 @@
 
 namespace Cerberus\Users\Http\Controllers;
 
-use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Contracts\Users\User;
 use Illuminate\Routing\Controller;
+use Cerberus\Users\DTO\StoreUserDTO;
+use Cerberus\Users\DTO\UpdateUserDTO;
 use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Contracts\Users\UserService;
 use Cerberus\Contracts\Shared\Responsable;
@@ -66,11 +67,11 @@ class UserController extends Controller
     /**
      * Create a new user.
      *
-     * @param \Cerberus\Users\DTO\UserDTO $dto
+     * @param \Cerberus\Users\DTO\StoreUserDTO $dto
      *
      * @return \Illuminate\Contracts\Support\Responsable
      */
-    public function store(UserDTO $dto): Responsable
+    public function store(StoreUserDTO $dto): Responsable
     {
         $user = $this->service->create($dto);
 
@@ -80,12 +81,12 @@ class UserController extends Controller
     /**
      * Update an existing user.
      *
-     * @param \Cerberus\Users\Models\User $user
-     * @param \Cerberus\Users\DTO\UserDTO $dto
+     * @param \Cerberus\Users\Models\User       $user
+     * @param \Cerberus\Users\DTO\UpdateUserDTO $dto
      *
      * @return \Illuminate\Contracts\Support\Responsable
      */
-    public function update(User $user, UserDTO $dto): Responsable
+    public function update(User $user, UpdateUserDTO $dto): Responsable
     {
         $user = $this->service->update($user, $dto);
 
@@ -99,7 +100,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Responsable
      */
-    public function delete(User $user): Responsable
+    public function destroy(User $user): Responsable
     {
         $this->service->delete($user);
 

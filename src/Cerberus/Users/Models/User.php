@@ -139,4 +139,16 @@ class User extends Authenticatable implements UserInterface
     {
         return $this->where('email', $email)->first();
     }
+
+    /**
+     * Find user by key name.
+     *
+     * @param int|string $value
+     *
+     * @return \Cerberus\Contracts\Users\User|null
+     */
+    public static function resolve(int|string $value): ?User
+    {
+        return static::where(static::keyName(), $value)->first();
+    }
 }

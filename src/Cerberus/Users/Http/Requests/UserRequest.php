@@ -2,9 +2,7 @@
 
 namespace Cerberus\Users\Http\Requests;
 
-use Cerberus\Users\Models\User;
-use Illuminate\Validation\Rule;
-use Cerberus\Auth\Rules\PasswordRule;
+use Cerberus\Contracts\Users\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -18,28 +16,12 @@ class UserRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Get the user from the route params or else the user making the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return \Cerberus\Contracts\Users\User|null
      */
-    public function rules(): array
+    public function getUserEntity(): ?User
     {
-        return [
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique(User::class),
-            ],
-            'password' => [
-                'required',
-                'string',
-                new PasswordRule(),
-                'confirmed',
-            ],
-        ];
+        return $this->route('user') ?: $this->user();
     }
 }

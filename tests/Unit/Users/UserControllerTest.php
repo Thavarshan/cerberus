@@ -4,8 +4,9 @@ namespace Cerberus\Tests\Unit\Users;
 
 use Mockery as m;
 use Cerberus\Tests\TestCase;
-use Cerberus\Users\DTO\UserDTO;
 use Cerberus\Users\Models\User;
+use Cerberus\Users\DTO\StoreUserDTO;
+use Cerberus\Users\DTO\UpdateUserDTO;
 use Cerberus\Contracts\Users\UserFilter;
 use Cerberus\Contracts\Users\UserService;
 use Cerberus\Users\Http\Controllers\UserController;
@@ -57,7 +58,7 @@ class UserControllerTest extends TestCase
     public function testCreateNewUser(): void
     {
         $details = ['name' => 'John Doe'];
-        $dto = m::mock(UserDTO::class);
+        $dto = m::mock(StoreUserDTO::class);
         $service = m::mock(UserService::class);
         $service->shouldReceive('create')
             ->once()
@@ -75,7 +76,7 @@ class UserControllerTest extends TestCase
     {
         $user = new User(['name' => 'John Doe']);
         $details = ['name' => 'James Doe'];
-        $dto = m::mock(UserDTO::class);
+        $dto = m::mock(UpdateUserDTO::class);
         $service = m::mock(UserService::class);
         $service->shouldReceive('update')
             ->once()
@@ -99,7 +100,7 @@ class UserControllerTest extends TestCase
             ->andReturnNull();
 
         $controller = new UserController($service);
-        $response = $controller->delete($user);
+        $response = $controller->destroy($user);
         $data = $response->content();
 
         $this->assertEmpty((array) $data);

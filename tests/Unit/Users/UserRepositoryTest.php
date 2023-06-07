@@ -96,7 +96,7 @@ class UserRepositoryTest extends TestCase
             ->once()
             ->with($details)
             ->andReturn(1);
-        $user->shouldReceive('fresh')
+        $user->shouldReceive('refresh')
             ->once()
             ->andReturn(new User($details));
 

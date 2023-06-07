@@ -98,13 +98,15 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      */
     public function update(UserInterface $user, UserDTO $dto): UserInterface
     {
-        return tap($user, function (UserInterface $user) use ($dto) {
+        tap($user, function (UserInterface $user) use ($dto) {
             $instance = $this->model->find($user->getId());
 
             $instance->update($dto->toArray());
-
-            return $instance->fresh();
         });
+
+        $user->refresh();
+
+        return $user;
     }
 
     /**
