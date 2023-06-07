@@ -120,4 +120,20 @@ return [
     */
 
     'password_timeout' => 10800,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Credentials
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the input names of the credentials used for
+    | authentication. The default values match the default Laravel
+    | authentication input names.
+    |
+    */
+
+    'credentials' => [
+        'username' => 'email',
+        'password' => 'password',
+    ],
 ];

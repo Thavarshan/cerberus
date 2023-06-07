@@ -3,6 +3,7 @@
 namespace Cerberus\Auth\Authenticators;
 
 use Cerberus\Contracts\Users\User;
+use Illuminate\Contracts\Auth\Guard;
 use Cerberus\Auth\Support\Credentials;
 use Cerberus\Contracts\Auth\Authenticator;
 use Illuminate\Contracts\Auth\StatefulGuard;

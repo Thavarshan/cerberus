@@ -69,4 +69,14 @@ class AuthService extends AbstractService implements AuthServiceInterface
     // ): UserInterface {
     //     // code...
     // }
+
+    /**
+     * Logout user.
+     *
+     * @return void
+     */
+    public function logout(): void
+    {
+        $this->auth->logout();
+    }
 }

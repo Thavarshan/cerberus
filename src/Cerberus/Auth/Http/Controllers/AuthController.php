@@ -7,6 +7,8 @@ use Cerberus\Contracts\Auth\AuthService;
 use Cerberus\Auth\Http\Requests\LoginRequest;
 use Illuminate\Contracts\Support\Responsable;
 use Cerberus\Auth\Http\Responses\LoginResponse;
+use Cerberus\Auth\Http\Responses\LogoutResponse;
+use Cerberus\Auth\Http\Responses\AuthUserResponse;
 
 class AuthController extends Controller
 {
@@ -43,5 +45,27 @@ class AuthController extends Controller
         );
 
         return LoginResponse::dispatch($user);
+    }
+
+    /**
+     * Get authenticated user.
+     *
+     * @return \Illuminate\Contracts\Support\Responsable
+     */
+    public function user(): Responsable
+    {
+        return AuthUserResponse::dispatch();
+    }
+
+    /**
+     * Logout user.
+     *
+     * @return \Illuminate\Contracts\Support\Responsable
+     */
+    public function logout(): Responsable
+    {
+        $this->service->logout();
+
+        return LogoutResponse::dispatch();
     }
 }

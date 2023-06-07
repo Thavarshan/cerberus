@@ -24,4 +24,24 @@ abstract class Authenticator
     {
         $this->guard = $guard;
     }
+
+    /**
+     * Get the guard instance.
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    public function guard(): Guard
+    {
+        return $this->guard;
+    }
+
+    /**
+     * Logout user.
+     *
+     * @return void
+     */
+    public function logout(): void
+    {
+        $this->guard->logout();
+    }
 }

@@ -15,4 +15,11 @@ interface AuthService
      * @return \Cerberus\Contracts\Users\User
      */
     public function authenticateViaCredentials(Credentials $credentials): User;
+
+    /**
+     * Logout user.
+     *
+     * @return void
+     */
+    public function logout(): void;
 }

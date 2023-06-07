@@ -22,7 +22,7 @@ Route::group([
 ], function (): void {
     Route::post('/logout', AuthController::class . '@logout')->name('logout');
     // Route::post('/refresh', AuthController::class . '@refresh')->name('refresh');
-    // Route::get('/user', AuthController::class . '@user')->name('user');
+    Route::get('/user', AuthController::class . '@user')->name('user');
 
     Route::resource('users', UserController::class)->except(['create', 'edit']);
 });

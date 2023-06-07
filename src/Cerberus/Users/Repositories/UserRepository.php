@@ -119,9 +119,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     public function delete(UserInterface $user): void
     {
         tap($user->getId(), function (int $id) {
-            $instance = $this->model->find($id);
-
-            $instance->delete();
+            $this->model->find($id)->delete();
         });
     }
 }
