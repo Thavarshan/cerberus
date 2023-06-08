@@ -2,9 +2,10 @@
 
 namespace Cerberus\Auth\Exceptions;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Support\Responsable;
 
-class InvalidCredentialsException extends \Exception
+class InvalidCredentialsException extends \Exception implements Responsable
 {
     /**
      * Create a new exception instance.
@@ -23,10 +24,10 @@ class InvalidCredentialsException extends \Exception
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function toResponse(Request $request)
+    public function toResponse($request)
     {
-        // code...
+        return new JsonResponse($this->getMessage(), 422);
     }
 }

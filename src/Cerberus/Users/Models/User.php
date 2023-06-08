@@ -4,7 +4,6 @@ namespace Cerberus\Users\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Cerberus\Auth\Tokens\Token;
 use Illuminate\Notifications\Notifiable;
 use Cerberus\Contracts\Users\User as UserInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,13 +47,6 @@ class User extends Authenticatable implements UserInterface
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    /**
-     * The user's auth token.
-     *
-     * @var \Cerberus\Auth\Tokens\Token
-     */
-    protected $token;
 
     /**
      * Get the route key for the model.
@@ -104,28 +96,6 @@ class User extends Authenticatable implements UserInterface
     public function getEmail(): string
     {
         return $this->getAttribute('email');
-    }
-
-    /**
-     * Set user's auth token.
-     *
-     * @param \Cerberus\Auth\Tokens\Token $token
-     *
-     * @return void
-     */
-    public function setToken(Token $token): void
-    {
-        $this->setAttribute('token', $token->getValue());
-    }
-
-    /**
-     * Get user's auth token.
-     *
-     * @return string
-     */
-    public function getToken(): string
-    {
-        return $this->getAttribute('token');
     }
 
     /**

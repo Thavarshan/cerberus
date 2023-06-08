@@ -3,7 +3,6 @@
 namespace Cerberus\Auth\Services;
 
 use Cerberus\Auth\Support\Credentials;
-use Cerberus\Auth\Tokens\TransientToken;
 use Cerberus\Contracts\Auth\Authenticator;
 use Cerberus\Contracts\Users\User as UserInterface;
 use Cerberus\Shared\Persistence\Services\AbstractService;
@@ -40,29 +39,34 @@ class AuthService extends AbstractService implements AuthServiceInterface
      *
      * @param \Cerberus\Auth\Support\Credentials $credentials
      *
-     * @return \Cerberus\Contracts\Auth\User
+     * @return \Cerberus\Contracts\Users\User
      */
     public function authenticateViaCredentials(
         Credentials $credentials
     ): UserInterface {
         $user = $this->auth->authenticate($credentials);
 
-        $user->setToken(new TransientToken());
+        // $user->setToken(new TransientToken());
 
         return $user;
     }
 
-    // public function authenticateViaToken(
-    //     Credentials $credentials
-    // ): UserInterface {
-    //     // code...
-    // }
+    /**
+     * Authenticate user via personal access token.
+     *
+     * @param \Cerberus\Auth\Support\Credentials $credentials
+     *
+     * @return \Cerberus\Contracts\Users\User
+     */
+    public function authenticateViaToken(
+        Credentials $credentials
+    ): UserInterface {
+        $user = $this->auth->authenticate($credentials);
 
-    // public function authenticateViaSocial(
-    //     Credentials $credentials
-    // ): UserInterface {
-    //     // code...
-    // }
+        // $user->setToken(new TransientToken());
+
+        return $user;
+    }
 
     // public function authenticateViaJWT(
     //     Credentials $credentials

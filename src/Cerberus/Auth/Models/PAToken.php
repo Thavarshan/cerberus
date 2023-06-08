@@ -4,10 +4,16 @@ namespace Cerberus\Auth\Models;
 
 use Cerberus\Contracts\Auth\HasAbilities;
 use Cerberus\Shared\Persistence\Models\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class PersonalAccessToken extends Model implements HasAbilities
+class PAToken extends Model implements HasAbilities
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'personal_access_tokens';
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -26,7 +32,8 @@ class PersonalAccessToken extends Model implements HasAbilities
      */
     protected $fillable = [
         'name',
-        'token',
+        'value',
+        'user_id',
         'abilities',
         'expires_at',
     ];
@@ -37,18 +44,8 @@ class PersonalAccessToken extends Model implements HasAbilities
      * @var array
      */
     protected $hidden = [
-        'token',
+        'value',
     ];
-
-    /**
-     * Get the tokenable model that the access token belongs to.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function tokenable(): MorphTo
-    {
-        return $this->morphTo('tokenable');
-    }
 
     /**
      * Find the token instance matching the given token.
@@ -60,14 +57,14 @@ class PersonalAccessToken extends Model implements HasAbilities
     public static function findToken(string $token): ?static
     {
         if (false === strpos($token, '|')) {
-            return static::where('token', hash('sha256', $token))->first();
+            return static::where('value', hash('sha256', $token))->first();
         }
 
         [$id, $token] = explode('|', $token, 2);
 
         if ($instance = static::find($id)) {
             return hash_equals(
-                $instance->token,
+                $instance->value,
                 hash('sha256', $token)
             ) ? $instance : null;
         }
@@ -96,5 +93,27 @@ class PersonalAccessToken extends Model implements HasAbilities
     public function cant(string $ability): bool
     {
         return ! $this->can($ability);
+    }
+
+    /**
+     * Set the last used at timestamp.
+     *
+     * @param \DateTimeInterface $timestamp
+     *
+     * @return void
+     */
+    public function setLastUsed(\DateTimeInterface $timestamp): void
+    {
+        $this->forceFill(['last_used_at' => $timestamp])->save();
+    }
+
+    /**
+     * Get the ID of the user this token belongs to.
+     *
+     * @return int|null
+     */
+    public function getUserId(): ?int
+    {
+        return $this->user_id;
     }
 }

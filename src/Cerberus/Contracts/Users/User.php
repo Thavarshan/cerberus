@@ -2,7 +2,6 @@
 
 namespace Cerberus\Contracts\Users;
 
-use Cerberus\Auth\Tokens\Token;
 use Cerberus\Contracts\Shared\Entity;
 use Cerberus\Contracts\Shared\Filterable;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -38,22 +37,6 @@ interface User extends Authenticatable, Entity, Filterable
      * @return \Cerberus\Contracts\Users\User|null
      */
     public function whereEmail($email): ?User;
-
-    /**
-     * Set user's auth token.
-     *
-     * @param \Cerberus\Auth\Tokens\Token $token
-     *
-     * @return void
-     */
-    public function setToken(Token $token): void;
-
-    /**
-     * Get user's auth token.
-     *
-     * @return string
-     */
-    public function getToken(): string;
 
     /**
      * Reload the current model instance with fresh attributes from the database.

@@ -13,6 +13,7 @@ use Cerberus\Users\Services\UserService;
 use Cerberus\Users\Http\Requests\UserRequest;
 use Cerberus\Users\Repositories\UserRepository;
 use Cerberus\Users\Http\Requests\StoreUserRequest;
+use Cerberus\Contracts\Users\User as UserInterface;
 use Cerberus\Users\Http\Requests\UpdateUserRequest;
 use Cerberus\Contracts\Users\UserFilter as UserFilterInterface;
 use Cerberus\Contracts\Users\UserService as UserServiceInterface;
@@ -36,6 +37,7 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->registerUserEntity();
         $this->registerUserRouteModelBinding();
 
         $this->registerFilters();
@@ -95,6 +97,16 @@ class UserServiceProvider extends ServiceProvider
 
             return $service->findBy(User::keyName(), $value);
         });
+    }
+
+    /**
+     * Register user entity.
+     *
+     * @return void
+     */
+    public function registerUserEntity(): void
+    {
+        $this->app->bind(UserInterface::class, fn () => new User());
     }
 
     /**

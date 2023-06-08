@@ -9,7 +9,7 @@ interface Fillable
      *
      * @return array<string>
      */
-    public function getFillable(): array;
+    public function getFillable();
 
     /**
      * Set the fillable attributes for the model.

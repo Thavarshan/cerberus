@@ -48,7 +48,6 @@ class AuthenticationTest extends TestCase
         $this->assertEquals($this->user->id, $user->id);
         $this->assertEquals($this->user->name, $user->name);
         $this->assertEquals($this->user->email, $user->email);
-        $this->assertNotNull($user->token);
 
         $this->assertAuthenticated();
     }

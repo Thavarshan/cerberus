@@ -3,7 +3,6 @@
 namespace Cerberus\Tests\Unit\Users;
 
 use Cerberus\Tests\TestCase;
-use Cerberus\Auth\Tokens\Token;
 use Cerberus\Users\Models\User;
 
 /**
@@ -39,16 +38,4 @@ class UserTest extends TestCase
 
         $this->assertEquals('john@example.com', $user->getEmail());
     }
-
-    public function testSetAndGetToken(): void
-    {
-        $user = new User();
-        $user->setToken(new MockToken('fake-token-value'));
-
-        $this->assertEquals('fake-token-value', $user->getToken());
-    }
-}
-
-class MockToken extends Token
-{
 }
