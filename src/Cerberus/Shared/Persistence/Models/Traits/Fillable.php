@@ -12,7 +12,7 @@ trait Fillable
      *
      * @return array
      */
-    public function filterFillable(array $data, $resource = null): array
+    public function filterFillable(array $data, mixed $resource = null): array
     {
         if (is_null($resource)) {
             $resource = $this;

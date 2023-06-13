@@ -2,12 +2,11 @@
 
 namespace Cerberus\Shared\Persistence\DTO;
 
-use App\Exceptions\JsonEncodingException;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Arrayable;
+use Cerberus\Shared\Exceptions\JsonEncodingException;
 use Cerberus\Shared\Persistence\Models\Traits\Fillable;
+use Cerberus\Interfaces\Persistence\DTO as DTOInterface;
 
-abstract class DTO implements Arrayable, \ArrayAccess, Jsonable, \JsonSerializable
+abstract class DTO implements DTOInterface
 {
     use Fillable;
 
@@ -45,6 +44,16 @@ abstract class DTO implements Arrayable, \ArrayAccess, Jsonable, \JsonSerializab
     public function getFillable(): array
     {
         return $this->fillable;
+    }
+
+    /**
+     * Get all of the input items in the object.
+     *
+     * @return array
+     */
+    public function all(): array
+    {
+        return $this->toArray();
     }
 
     /**

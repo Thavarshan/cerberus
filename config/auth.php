@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -39,16 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-        'token' => [
-            'driver' => 'patoken',
-            'provider' => 'users',
-        ],
-
-        'jwt' => [
-            'driver' => 'jwt',
-            'provider' => 'users',
-        ],
     ],
 
     /*
@@ -71,7 +62,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Cerberus\Users\Models\User::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -121,19 +112,4 @@ return [
 
     'password_timeout' => 10800,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Credentials
-    |--------------------------------------------------------------------------
-    |
-    | Here you may define the input names of the credentials used for
-    | authentication. The default values match the default Laravel
-    | authentication input names.
-    |
-    */
-
-    'credentials' => [
-        'username' => 'email',
-        'password' => 'password',
-    ],
 ];

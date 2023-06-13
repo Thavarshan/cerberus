@@ -1,28 +1,25 @@
 <?php
 
-namespace Cerberus\Shared\Persistence\Models;
+namespace Cerberus\Interfaces\Persistence;
 
+use ArrayAccess;
+use JsonSerializable;
 use Illuminate\Support\Collection;
-use Cerberus\Interfaces\Persistence\DTO;
-use Cerberus\Shared\Persistence\Models\Traits\Fillable;
-use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Cerberus\Shared\Persistence\Models\Traits\Filterable;
-use Cerberus\Interfaces\Persistence\Model as ModelInterface;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Routing\UrlRoutable;
+use Illuminate\Contracts\Queue\QueueableEntity;
+use Illuminate\Contracts\Broadcasting\HasBroadcastChannel;
+use Illuminate\Contracts\Support\CanBeEscapedWhenCastToString;
 
-abstract class Model extends EloquentModel implements ModelInterface
+interface Model extends Arrayable, ArrayAccess, CanBeEscapedWhenCastToString, HasBroadcastChannel, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable, Filterable, Fillable
 {
-    use Fillable;
-    use Filterable;
-
     /**
      * Get model's ID.
      *
      * @return int
      */
-    public function getId(): int
-    {
-        return (int) $this->getAttribute($this->getKeyName());
-    }
+    public function getId(): int;
 
     /**
      * Find a model by it's ID.
@@ -31,10 +28,7 @@ abstract class Model extends EloquentModel implements ModelInterface
      *
      * @return \Cerberus\Interfaces\Persistence\Model|null
      */
-    public function find(int|string $id): ?Model
-    {
-        return static::query()->find($id);
-    }
+    public function find(int|string $id): ?Model;
 
     /**
      * Find a model by the given key.
@@ -44,10 +38,7 @@ abstract class Model extends EloquentModel implements ModelInterface
      *
      * @return \Cerberus\Interfaces\Persistence\Model|null
      */
-    public function findBy(string $key, string $value): ?Model
-    {
-        return static::query()->where($key, $value)->first();
-    }
+    public function findBy(string $key, string $value): ?Model;
 
     /**
      * Add a basic where clause to the query.
@@ -64,31 +55,21 @@ abstract class Model extends EloquentModel implements ModelInterface
         mixed $operator = null,
         mixed $value = null,
         string $boolean = 'and'
-    ): Model {
-        static::query()->where($column, $operator, $value, $boolean);
-
-        return $this;
-    }
+    ): Model;
 
     /**
      * Execute the query as a "select" statement.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function get(): Collection|array
-    {
-        return static::query()->get();
-    }
+    public function get(): Collection|array;
 
     /**
      * Execute the query and get the first result.
      *
      * @return \Illuminate\Database\Eloquent\Model|object|static|null
      */
-    public function first(): ?Model
-    {
-        return static::query()->first();
-    }
+    public function first(): ?Model;
 
     /**
      * Save a new model and return the instance.
@@ -97,8 +78,31 @@ abstract class Model extends EloquentModel implements ModelInterface
      *
      * @return \Cerberus\Interfaces\Persistence\Model
      */
-    public function create(DTO $dto): Model
-    {
-        return static::query()->create($dto->getFillable());
-    }
+    public function create(DTO $dto): Model;
+
+    /**
+     * Update the model in the database.
+     *
+     * @param array $attributes
+     * @param array $options
+     *
+     * @return bool
+     */
+    public function update(array $attributes = [], array $options = []);
+
+    /**
+     * Delete the model from the database.
+     *
+     * @return bool|null
+     *
+     * @throws \LogicException
+     */
+    public function delete();
+
+    /**
+     * Reload the current model instance with fresh attributes from the database.
+     *
+     * @return \Cerberus\Interfaces\Persistence\Model
+     */
+    public function refresh();
 }

@@ -4,9 +4,11 @@ namespace Tests\Unit\Users;
 
 use Mockery as m;
 use Cerberus\Tests\TestCase;
-use Cerberus\Users\DTO\UserDTO;
-use Cerberus\Users\Models\User;
-use Cerberus\Contracts\Users\UserFilter;
+use Cerberus\Interfaces\Users\User;
+use Cerberus\Users\DTO\StoreUserDTO;
+use Cerberus\Users\DTO\UpdateUserDTO;
+use Illuminate\Database\Eloquent\Builder;
+use Cerberus\Interfaces\Persistence\Filter;
 use Cerberus\Users\Repositories\UserRepository;
 
 /**
@@ -24,13 +26,14 @@ class UserRepositoryTest extends TestCase
     public function testGetAllUsers(): void
     {
         $users = collect([]);
-        $filter = m::mock(UserFilter::class);
+        $filter = m::mock(Filter::class);
+        $builder = m::mock(Builder::class);
         $user = m::mock(User::class);
         $user->shouldReceive('filter')
             ->once()
             ->with($filter)
-            ->andReturnSelf();
-        $user->shouldReceive('get')
+            ->andReturn($builder);
+        $builder->shouldReceive('get')
             ->once()
             ->withNoArgs()
             ->andReturn($users);
@@ -43,7 +46,7 @@ class UserRepositoryTest extends TestCase
     public function testFindUserByEmail(): void
     {
         $user = m::mock(User::class);
-        $user->shouldReceive('whereEmail')
+        $user->shouldReceive('findByEmail')
             ->once()
             ->with('john@example.com')
             ->andReturnSelf();
@@ -56,7 +59,7 @@ class UserRepositoryTest extends TestCase
     public function testFindUserByEmailReturnsNullIfNotFound(): void
     {
         $user = m::mock(User::class);
-        $user->shouldReceive('whereEmail')
+        $user->shouldReceive('findByEmail')
             ->once()
             ->with('john@example.com')
             ->andReturn(null);
@@ -68,11 +71,11 @@ class UserRepositoryTest extends TestCase
 
     public function testCreateNewUser(): void
     {
-        $dto = new UserDTO(['name' => 'John Doe']);
+        $dto = new StoreUserDTO(['name' => 'John Doe']);
         $user = m::mock(User::class);
         $user->shouldReceive('create')
             ->once()
-            ->with(['name' => 'John Doe'])
+            ->with($dto)
             ->andReturn($user);
 
         $respository = new UserRepository($user);
@@ -83,7 +86,7 @@ class UserRepositoryTest extends TestCase
     public function testUpdateUser(): void
     {
         $details = ['name' => 'John Doe'];
-        $dto = new UserDTO(['name' => 'John Doe']);
+        $dto = new UpdateUserDTO(['name' => 'John Doe']);
         $user = m::mock(User::class);
         $user->shouldReceive('getId')
             ->once()
@@ -98,7 +101,7 @@ class UserRepositoryTest extends TestCase
             ->andReturn(1);
         $user->shouldReceive('refresh')
             ->once()
-            ->andReturn(new User($details));
+            ->andReturnSelf();
 
         $respository = new UserRepository($user);
 

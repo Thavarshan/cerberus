@@ -2,37 +2,41 @@
 
 namespace Cerberus\Users\Repositories;
 
-use Cerberus\Users\DTO\UserDTO;
-use Cerberus\Users\Models\User;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Cerberus\Contracts\Users\UserFilter;
-use Cerberus\Contracts\Users\User as UserInterface;
+use Cerberus\Interfaces\Users\User;
+use Cerberus\Interfaces\Persistence\Filter;
 use Cerberus\Shared\Persistence\Repositories\AbstractRepository;
-use Cerberus\Contracts\Users\UserRepository as UserRepositoryInterface;
+use Cerberus\Interfaces\Users\UserRepository as UserRepositoryInterface;
 
 class UserRepository extends AbstractRepository implements UserRepositoryInterface
 {
     /**
-     * Create a new repository instance.
+     * The model instance.
      *
-     * @param \Cerberus\Users\Models\User $model
+     * @var \Cerberus\Interfaces\Users\User
+     */
+    protected $model;
+
+    /**
+     * Create a new user repository instance.
+     *
+     * @param \Cerberus\Interfaces\Users\User $model
      *
      * @return void
      */
     public function __construct(User $model)
     {
-        parent::__construct($model);
+        $this->model = $model;
     }
 
     /**
      * Get a listing of users with filters applied.
      *
-     * @param \Cerberus\Contracts\Users\UserFilter $filter
+     * @param \Cerberus\Interfaces\Persistence\Filter $filter
      *
      * @return \Illuminate\Support\Collection
      */
-    public function list(UserFilter $filter): Collection
+    public function list(Filter $filter): Collection
     {
         return $this->model->filter($filter)->get();
     }
@@ -42,84 +46,22 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      *
      * @param string $email
      *
-     * @return \Cerberus\Contracts\Users\User|null
+     * @return \Cerberus\Interfaces\Users\User|null
      */
-    public function findByEmail(string $email): UserInterface|null
+    public function findByEmail(string $email): User|null
     {
-        return $this->model->whereEmail($email);
+        return $this->model->findByEmail($email);
     }
 
     /**
-     * Find a user by their ID.
+     * Find user by username.
      *
-     * @param int|string $id
+     * @param string $username
      *
-     * @return \Cerberus\Contracts\Users\User|null
+     * @return \Cerberus\Interfaces\Users\User|null
      */
-    public function find(int|string $id): ?UserInterface
+    public function findByUsername(string $username): User|null
     {
-        return $this->model->find($id);
-    }
-
-    /**
-     * Find a user by the given key.
-     *
-     * @param string $key
-     * @param string $value
-     *
-     * @return \Cerberus\Contracts\Users\User
-     */
-    public function findBy(string $key, string $value): ?UserInterface
-    {
-        return $this->model->where($key, $value)->first();
-    }
-
-    /**
-     * Create a new user.
-     *
-     * @param \Cerberus\Users\DTO\UserDTO $dto
-     *
-     * @return \Cerberus\Contracts\Users\User
-     */
-    public function create(UserDTO $dto): UserInterface
-    {
-        return DB::transaction(function () use ($dto) {
-            return $this->model->create($dto->toArray());
-        });
-    }
-
-    /**
-     * Update an existing user.
-     *
-     * @param \Cerberus\Contracts\Users\User $user
-     * @param \Cerberus\Users\DTO\UserDTO    $dto
-     *
-     * @return \Cerberus\Contracts\Users\User
-     */
-    public function update(UserInterface $user, UserDTO $dto): UserInterface
-    {
-        tap($user, function (UserInterface $user) use ($dto) {
-            $instance = $this->model->find($user->getId());
-
-            $instance->update($dto->toArray());
-        });
-
-        $user->refresh();
-
-        return $user;
-    }
-
-    /**
-     * Delete an existing user.
-     *
-     * @param \Cerberus\Contracts\Users\User $user
-     *
-     * @return void
-     */
-    public function delete(UserInterface $user): void
-    {
-        tap($user->getId(), function (int $id) {
-            $this->model->find($id)->delete();
-        });
+        return $this->model->findBy('username', $username);
     }
 }

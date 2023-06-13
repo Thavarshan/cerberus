@@ -5,16 +5,14 @@ namespace Cerberus\Users\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Notifications\Notifiable;
-use Cerberus\Contracts\Users\User as UserInterface;
+use Cerberus\Shared\Persistence\Models\Model;
+use Cerberus\Interfaces\Users\User as UserInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Cerberus\Shared\Persistence\Filters\Traits\Filterable;
 
-class User extends Authenticatable implements UserInterface
+class User extends Model implements UserInterface
 {
     use HasFactory;
     use Notifiable;
-    use Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -89,6 +87,16 @@ class User extends Authenticatable implements UserInterface
     }
 
     /**
+     * Get user's name.
+     *
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->getAttribute('username');
+    }
+
+    /**
      * Get user's email.
      *
      * @return string
@@ -105,9 +113,9 @@ class User extends Authenticatable implements UserInterface
      *
      * @return \Cerberus\Contracts\Users\User|null
      */
-    public function whereEmail($email): ?UserInterface
+    public function findByEmail(string $email): ?UserInterface
     {
-        return $this->where('email', $email)->first();
+        return $this->findBy('email', $email);
     }
 
     /**

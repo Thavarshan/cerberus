@@ -14,7 +14,7 @@ class UserTest extends TestCase
     {
         $user = new User();
 
-        $this->assertEquals(User::keyName(), $user->getRouteKeyName());
+        $this->assertEquals('username', $user->getRouteKeyName());
     }
 
     public function testGetId(): void
@@ -30,6 +30,13 @@ class UserTest extends TestCase
         $user = new User(['name' => 'John Doe']);
 
         $this->assertEquals('John Doe', $user->getName());
+    }
+
+    public function testGetUserame(): void
+    {
+        $user = new User(['username' => 'John Doe']);
+
+        $this->assertEquals('John Doe', $user->getUsername());
     }
 
     public function testGetEmail(): void
