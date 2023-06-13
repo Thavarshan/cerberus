@@ -6,9 +6,9 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Routing\ResponseFactory;
-use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Contracts\Support\Responsable;
 use App\Exceptions\InvalidResponseTypeException;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 
 abstract class Response extends ResponseFactory
 {
@@ -45,8 +45,9 @@ abstract class Response extends ResponseFactory
      *
      * @return mixed
      */
-    public static function dispatch($content = null)
+    public static function dispatch(mixed $content = null)
     {
+        /* @phpstan-ignore-next-line */
         $response = new static(
             app(ViewFactory::class),
             app(Redirector::class),

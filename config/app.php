@@ -167,6 +167,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Domain Service Providers...
+         */
+        Cerberus\Users\Providers\UserServiceProvider::class,
     ])->toArray(),
 
     /*

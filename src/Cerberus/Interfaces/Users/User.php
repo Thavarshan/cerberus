@@ -3,8 +3,12 @@
 namespace Cerberus\Interfaces\Users;
 
 use Cerberus\Interfaces\Persistence\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-interface User extends Model
+// @phpcs:ignore
+interface User extends Model, AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     /**
      * Get user's name.

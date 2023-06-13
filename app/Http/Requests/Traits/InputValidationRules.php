@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Traits;
 
+use App\Rules\PasswordRule;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use Laravel\Fortify\Rules\PasswordRule;
 
 trait InputValidationRules
 {

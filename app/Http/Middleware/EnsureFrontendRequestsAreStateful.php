@@ -16,7 +16,7 @@ class EnsureFrontendRequestsAreStateful
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param callable                 $next
+     * @param \Closure                 $next
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

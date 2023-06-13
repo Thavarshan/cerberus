@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-class InvalidResponseTypeException extends \Exception
+final class InvalidResponseTypeException extends \Exception
 {
     /**
      * Throw new InvalidResponseTypeException.

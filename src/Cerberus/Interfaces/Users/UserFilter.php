@@ -2,8 +2,7 @@
 
 namespace Cerberus\Interfaces\Users;
 
-use DeepCopy\Filter\Filter;
-use Illuminate\Contracts\Database\Query\Builder;
+use Cerberus\Interfaces\Persistence\Filter;
 
 interface UserFilter extends Filter
 {
@@ -12,16 +11,16 @@ interface UserFilter extends Filter
      *
      * @param string $email
      *
-     * @return \Cerberus\Interfaces\Users\UserFilter
+     * @return void
      */
-    public function email(string $email): Builder;
+    public function email(string $email): void;
 
     /**
      * Filter by user's username.
      *
      * @param string $username
      *
-     * @return \Cerberus\Interfaces\Users\UserFilter
+     * @return void
      */
-    public function username(string $username): Builder;
+    public function username(string $username): void;
 }

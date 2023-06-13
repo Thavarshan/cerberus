@@ -5,6 +5,8 @@ namespace App\Http\Requests\Traits;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Cerberus\Interfaces\Users\UserService;
+use Cerberus\Users\Exceptions\UserNotFoundException;
 
 trait AuthorizesRequests
 {
@@ -27,11 +29,12 @@ trait AuthorizesRequests
      */
     public function isAuthenticated($role = null): bool
     {
-        $authenticated = ! is_null($this->user()) && $this->user()->is(Auth::user());
+        $authenticated = ! is_null($this->user())
+            && $this->user()->is(Auth::user());
 
-        if (! is_null($role)) {
-            return $this->user()->hasRole($role) && $authenticated;
-        }
+        // if (! is_null($role)) {
+        //     return $this->user()->hasRole($role) && $authenticated;
+        // }
 
         return $authenticated;
     }
@@ -60,8 +63,14 @@ trait AuthorizesRequests
      */
     public function isUser(): bool
     {
-        $field = 'email';
+        $service = app(UserService::class);
 
-        return User::where($field, $this->input($field))->exists();
+        try {
+            $service->findBy('email', $this->input('email'));
+        } catch (UserNotFoundException $e) {
+            return false;
+        }
+
+        return true;
     }
 }

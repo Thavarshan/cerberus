@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Contracts\Broadcasting\HasBroadcastChannel;
 use Illuminate\Contracts\Support\CanBeEscapedWhenCastToString;
 
+// @phpcs:ignore
 interface Model extends Arrayable, ArrayAccess, CanBeEscapedWhenCastToString, HasBroadcastChannel, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable, Filterable, Fillable
 {
     /**

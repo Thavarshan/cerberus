@@ -5,7 +5,7 @@ namespace Cerberus\Shared\Persistence\Exceptions;
 use Cerberus\Interfaces\Persistence\DTO;
 use Illuminate\Database\Eloquent\JsonEncodingException as EloquentJsonEncodingException;
 
-class JsonEncodingException extends EloquentJsonEncodingException
+final class JsonEncodingException extends EloquentJsonEncodingException
 {
     /**
      * Create a new JSON encoding exception for the dto.

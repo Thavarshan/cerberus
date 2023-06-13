@@ -3,18 +3,19 @@
 namespace Cerberus\Interfaces\Users;
 
 use Illuminate\Support\Collection;
-use Cerberus\Interfaces\Persistence\Filter;
+use Cerberus\Users\Filters\UserFilter;
+use Cerberus\Interfaces\Persistence\Repository;
 
-interface UserRepository
+interface UserRepository extends Repository
 {
     /**
      * Get a listing of users with filters applied.
      *
-     * @param \Cerberus\Interfaces\Persistence\Filter $filter
+     * @param \Cerberus\Users\Filters\UserFilter $filter
      *
      * @return \Illuminate\Support\Collection
      */
-    public function list(Filter $filter): Collection;
+    public function list(UserFilter $filter): Collection;
 
     /**
      * Find user by email.

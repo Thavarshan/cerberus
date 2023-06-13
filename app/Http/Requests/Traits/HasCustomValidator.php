@@ -29,19 +29,19 @@ trait HasCustomValidator
     /**
      * Get request validator instance.
      *
-     * @param \Illuminate\Contracts\Validation\Factory
+     * @param \Illuminate\Contracts\Validation\Factory $factory
      *
-     * @return ValidatorContract
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public function validator(Factory $factory): ValidatorContract
     {
         $validator = $this->makeValidator($factory);
 
-        if (! is_null($this->afterValidationHook)) {
+        if ($this->afterValidationHook instanceof \Closure) {
             $validator = $this->addAfterValidationHook($validator);
         }
 
-        if (! is_null($this->customErrorBag)) {
+        if (null !== $this->customErrorBag) {
             $validator = $this->addCustomErrorBag($validator);
         }
 
@@ -51,7 +51,7 @@ trait HasCustomValidator
     /**
      * Make new instance of validator.
      *
-     * @param \Illuminate\Contracts\Validation\Factory
+     * @param \Illuminate\Contracts\Validation\Factory $factory
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -72,8 +72,9 @@ trait HasCustomValidator
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function addAfterValidationHook(ValidatorContract $validator): ValidatorContract
-    {
+    protected function addAfterValidationHook(
+        ValidatorContract $validator
+    ): ValidatorContract {
         $validator->after($this->afterValidationHook);
 
         return $validator;
@@ -100,8 +101,10 @@ trait HasCustomValidator
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function addCustomErrorBag(ValidatorContract $validator): ValidatorContract
-    {
+    protected function addCustomErrorBag(
+        ValidatorContract $validator
+    ): ValidatorContract {
+        /* @phpstan-ignore-next-line */
         $validator->validateWithBag($this->customErrorBag);
 
         return $validator;
@@ -110,7 +113,7 @@ trait HasCustomValidator
     /**
      * Specify custom error message bag.
      *
-     * @param string $callback
+     * @param string $bag
      *
      * @return \Illuminate\Foundation\Http\FormRequest
      */
@@ -152,5 +155,15 @@ trait HasCustomValidator
         return $this->resolve(StatefulGuard::class)
             ->getProvider()
             ->validateCredentials($this->user(), $credentials);
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     */
+    public function rules(): array
+    {
+        return [];
     }
 }

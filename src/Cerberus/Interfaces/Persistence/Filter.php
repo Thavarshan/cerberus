@@ -2,16 +2,16 @@
 
 namespace Cerberus\Interfaces\Persistence;
 
-use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 interface Filter
 {
     /**
      * Apply the filters to database queries.
      *
-     * @param \Illuminate\Contracts\Database\Query\Builder $builder
+     * @param \Illuminate\Database\Eloquent\Builder $builder
      *
-     * @return \Illuminate\Contracts\Database\Query\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function apply(Builder $builder): Builder;
 }

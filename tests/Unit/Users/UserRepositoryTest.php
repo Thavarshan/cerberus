@@ -7,8 +7,8 @@ use Cerberus\Tests\TestCase;
 use Cerberus\Interfaces\Users\User;
 use Cerberus\Users\DTO\StoreUserDTO;
 use Cerberus\Users\DTO\UpdateUserDTO;
+use Cerberus\Users\Filters\UserFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Cerberus\Interfaces\Persistence\Filter;
 use Cerberus\Users\Repositories\UserRepository;
 
 /**
@@ -26,7 +26,7 @@ class UserRepositoryTest extends TestCase
     public function testGetAllUsers(): void
     {
         $users = collect([]);
-        $filter = m::mock(Filter::class);
+        $filter = m::mock(UserFilter::class);
         $builder = m::mock(Builder::class);
         $user = m::mock(User::class);
         $user->shouldReceive('filter')

@@ -1,6 +1,8 @@
 <?php
 
-namespace Laravel\Fortify\Rules;
+// @phpcs:ignoreFile
+
+namespace App\Rules;
 
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Validation\Rule;

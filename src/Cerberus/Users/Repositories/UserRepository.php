@@ -4,7 +4,7 @@ namespace Cerberus\Users\Repositories;
 
 use Illuminate\Support\Collection;
 use Cerberus\Interfaces\Users\User;
-use Cerberus\Interfaces\Persistence\Filter;
+use Cerberus\Users\Filters\UserFilter;
 use Cerberus\Shared\Persistence\Repositories\AbstractRepository;
 use Cerberus\Interfaces\Users\UserRepository as UserRepositoryInterface;
 
@@ -32,11 +32,11 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     /**
      * Get a listing of users with filters applied.
      *
-     * @param \Cerberus\Interfaces\Persistence\Filter $filter
+     * @param \Cerberus\Users\Filters\UserFilter $filter
      *
      * @return \Illuminate\Support\Collection
      */
-    public function list(Filter $filter): Collection
+    public function list(UserFilter $filter): Collection
     {
         return $this->model->filter($filter)->get();
     }

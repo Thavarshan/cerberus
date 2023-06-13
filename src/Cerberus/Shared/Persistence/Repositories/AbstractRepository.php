@@ -5,8 +5,9 @@ namespace Cerberus\Shared\Persistence\Repositories;
 use Illuminate\Support\Facades\DB;
 use Cerberus\Interfaces\Persistence\DTO;
 use Cerberus\Interfaces\Persistence\Model;
+use Cerberus\Interfaces\Persistence\Repository;
 
-abstract class AbstractRepository
+abstract class AbstractRepository implements Repository
 {
     /**
      * The model instance.

@@ -4,8 +4,12 @@ namespace Cerberus\Users\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Cerberus\Shared\Persistence\Models\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Cerberus\Interfaces\Users\User as UserInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,6 +17,10 @@ class User extends Model implements UserInterface
 {
     use HasFactory;
     use Notifiable;
+    use Authenticatable;
+    use Authorizable;
+    use CanResetPassword;
+    use MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
@@ -111,7 +119,7 @@ class User extends Model implements UserInterface
      *
      * @param string $email
      *
-     * @return \Cerberus\Contracts\Users\User|null
+     * @return \Cerberus\Interfaces\Users\User|null
      */
     public function findByEmail(string $email): ?UserInterface
     {
@@ -123,7 +131,7 @@ class User extends Model implements UserInterface
      *
      * @param int|string $value
      *
-     * @return \Cerberus\Contracts\Users\User|null
+     * @return \Cerberus\Interfaces\Users\User|null
      */
     public static function resolve(int|string $value): ?User
     {
