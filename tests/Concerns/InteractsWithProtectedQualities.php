@@ -2,8 +2,6 @@
 
 namespace Cerberus\Tests\Concerns;
 
-use ReflectionClass;
-
 trait InteractsWithProtectedQualities
 {
     /**
@@ -14,9 +12,11 @@ trait InteractsWithProtectedQualities
      *
      * @return mixed
      */
-    protected function accessProperty(object $object, string $property)
-    {
-        $objectReflection = new ReflectionClass($object);
+    protected function accessProperty(
+        object $object,
+        string $property
+    ): mixed {
+        $objectReflection = new \ReflectionClass($object);
         $property = $objectReflection->getProperty($property);
         $property->setAccessible(true);
 
@@ -32,9 +32,12 @@ trait InteractsWithProtectedQualities
      *
      * @return mixed
      */
-    protected function accessMethod(object $object, string $method, array $parameters = [])
-    {
-        $objectReflection = new ReflectionClass($object);
+    protected function accessMethod(
+        object $object,
+        string $method,
+        array $parameters = []
+    ): mixed {
+        $objectReflection = new \ReflectionClass($object);
         $method = $objectReflection->getMethod($method);
         $method->setAccessible(true);
 

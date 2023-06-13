@@ -13,8 +13,11 @@ trait AuthenticatesUser
      *
      * @return mixed
      */
-    public function signIn($user = null, array $overrides = [], string $as = null)
-    {
+    public function signIn(
+        mixed $user = null,
+        array $overrides = [],
+        string $as = null
+    ): mixed {
         $class = config('auth.providers.users.model');
 
         $user = $user ?: create($class::class, $overrides, $as);
