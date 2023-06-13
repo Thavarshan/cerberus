@@ -23,7 +23,7 @@ interface UserRepository
      *
      * @return \Cerberus\Interfaces\Users\User|null
      */
-    public function findByEmail(string $email): User|null;
+    public function findByEmail(string $email): ?User;
 
     /**
      * Find user by username.
@@ -32,5 +32,5 @@ interface UserRepository
      *
      * @return \Cerberus\Interfaces\Users\User|null
      */
-    public function findByUsername(string $username): User|null;
+    public function findByUsername(string $username): ?User;
 }
