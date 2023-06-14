@@ -8,11 +8,13 @@ use Cerberus\Shared\Persistence\Models\Traits\Fillable;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Cerberus\Shared\Persistence\Models\Traits\Filterable;
 use Cerberus\Interfaces\Persistence\Model as ModelInterface;
+use Cerberus\Shared\Persistence\Models\Traits\HasIdAttribute;
 
 abstract class Model extends EloquentModel implements ModelInterface
 {
     use Fillable;
     use Filterable;
+    use HasIdAttribute;
 
     /**
      * Query results.
@@ -96,12 +98,16 @@ abstract class Model extends EloquentModel implements ModelInterface
      */
     public function first(): ?ModelInterface
     {
-        if (null === $this->queryResults) {
+        if (
+            null === $this->queryResults
+            || null === $this->queryResults->first()
+        ) {
             return null;
         }
 
         return $this->newInstance(
-            $this->queryResults->first()->getAttributes()
+            $this->queryResults->first()->getAttributes(),
+            true
         );
     }
 
@@ -116,6 +122,6 @@ abstract class Model extends EloquentModel implements ModelInterface
     {
         $created = static::query()->create($dto->all());
 
-        return $this->newInstance($created->getAttributes());
+        return $this->newInstance($created->getAttributes(), true);
     }
 }

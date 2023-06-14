@@ -76,9 +76,7 @@ abstract class AbstractRepository implements Repository
     public function update(Model $model, DTO $dto): Model
     {
         tap($model, function (Model $model) use ($dto) {
-            $instance = $this->model->find($model->getId());
-
-            $instance->update($dto->toArray());
+            $model->update($dto->all());
         });
 
         $model->refresh();

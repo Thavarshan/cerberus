@@ -2,6 +2,7 @@
 
 namespace Cerberus\Shared\Persistence\DTO;
 
+use Illuminate\Support\Arr;
 use Cerberus\Shared\Persistence\Models\Traits\Fillable;
 use Cerberus\Interfaces\Persistence\DTO as DTOInterface;
 use Cerberus\Shared\Persistence\Exceptions\JsonEncodingException;
@@ -54,6 +55,32 @@ abstract class DTO implements DTOInterface
     public function all(): array
     {
         return $this->toArray();
+    }
+
+    /**
+     * Get the specified configuration value.
+     *
+     * @param string $key
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    public function get(string $key, mixed $default = null): mixed
+    {
+        return Arr::get($this->attributes, $key, $default);
+    }
+
+    /**
+     * Set a given configuration value.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return void
+     */
+    public function set(string $key, mixed $value = null): void
+    {
+        Arr::set($this->attributes, $key, $value);
     }
 
     /**

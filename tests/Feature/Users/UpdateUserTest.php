@@ -7,10 +7,8 @@ namespace Cerberus\Tests\Feature\Users;
  */
 class UpdateUserTest extends UserTestCase
 {
-    public function testUpdateUser(): void
+    public function testUpdateUserFeature(): void
     {
-        $this->withoutExceptionHandling();
-
         $user = $this->createUser();
 
         $this->assertDatabaseHas('users', [

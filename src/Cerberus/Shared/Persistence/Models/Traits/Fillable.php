@@ -22,12 +22,16 @@ trait Fillable
             $resource = new $resource();
         }
 
-        return array_filter(
+        $data = array_filter(
             $data,
-            function (string $key) use ($resource): bool {
-                return in_array($key, $resource->getFillable());
+            function (string $key): bool {
+                return in_array($key, $this->getFillable(), true);
             },
             \ARRAY_FILTER_USE_KEY
         );
+
+        unset($data['id']);
+
+        return $data;
     }
 }

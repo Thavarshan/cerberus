@@ -114,13 +114,6 @@ class UserRepositoryTest extends TestCase
         $details = ['name' => 'John Doe'];
         $dto = new UpdateUserDTO(['name' => 'John Doe']);
         $user = m::mock(User::class);
-        $user->shouldReceive('getId')
-            ->once()
-            ->andReturn(1);
-        $user->shouldReceive('find')
-            ->once()
-            ->with(1)
-            ->andReturnSelf();
         $user->shouldReceive('update')
             ->once()
             ->with($details)

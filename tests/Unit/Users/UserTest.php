@@ -4,12 +4,15 @@ namespace Cerberus\Tests\Unit\Users;
 
 use Cerberus\Tests\TestCase;
 use Cerberus\Users\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * @group Users
  */
 class UserTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testGetRouteKeyName(): void
     {
         $user = new User();

@@ -89,6 +89,24 @@ interface Model extends Arrayable, ArrayAccess, CanBeEscapedWhenCastToString, Ha
     public function create(DTO $dto): Model;
 
     /**
+     * Fill the model with an array of attributes. Force mass assignment.
+     *
+     * @param array $attributes
+     *
+     * @return $this
+     */
+    public function forceFill(array $attributes);
+
+    /**
+     * Save the model to the database.
+     *
+     * @param array $options
+     *
+     * @return bool
+     */
+    public function save(array $options = []);
+
+    /**
      * Update the model in the database.
      *
      * @param array $attributes
