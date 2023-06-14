@@ -99,7 +99,7 @@ jobs:
         DB_PORT: 33306
         DB_USER: root
 
-      run: vendor/bin/phpunit --coverage-text --colors=never --testsuite=Unit,Feature
+      run: vendor/bin/phpunit --coverage-text --colors=never
 
 
     - name: Execute Code Sniffer via phpcs
