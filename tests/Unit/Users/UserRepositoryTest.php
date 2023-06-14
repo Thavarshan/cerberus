@@ -69,6 +69,32 @@ class UserRepositoryTest extends TestCase
         $this->assertNull($respository->findByEmail('john@example.com'));
     }
 
+    public function testFindUserByUsername(): void
+    {
+        $user = m::mock(User::class);
+        $user->shouldReceive('findByUsername')
+            ->once()
+            ->with('johnDoe')
+            ->andReturnSelf();
+
+        $respository = new UserRepository($user);
+
+        $this->assertSame($user, $respository->findByUsername('johnDoe'));
+    }
+
+    public function testFindUserByUsernameReturnsNullIfNotFound(): void
+    {
+        $user = m::mock(User::class);
+        $user->shouldReceive('findByUsername')
+            ->once()
+            ->with('johnDoe')
+            ->andReturn(null);
+
+        $respository = new UserRepository($user);
+
+        $this->assertNull($respository->findByUsername('johnDoe'));
+    }
+
     public function testCreateNewUser(): void
     {
         $dto = new StoreUserDTO(['name' => 'John Doe']);

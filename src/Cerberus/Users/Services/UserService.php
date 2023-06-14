@@ -34,7 +34,7 @@ class UserService extends AbstractService implements UserServiceInterface
     /**
      * Get a listing of users with filters applied.
      *
-     * @param \Cerberus\Interfaces\Persistence\Filter $filter
+     * @param \Cerberus\Users\Filters\UserFilter $filter
      *
      * @return \Illuminate\Support\Collection
      */

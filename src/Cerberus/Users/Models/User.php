@@ -123,18 +123,22 @@ class User extends Model implements UserInterface
      */
     public function findByEmail(string $email): ?UserInterface
     {
-        return $this->findBy('email', $email);
+        return $this->newInstance(
+            $this->findBy('email', $email)->getAttributes()
+        );
     }
 
     /**
-     * Find user by key name.
+     * Find user by username.
      *
-     * @param int|string $value
+     * @param string $username
      *
      * @return \Cerberus\Interfaces\Users\User|null
      */
-    public static function resolve(int|string $value): ?User
+    public function findByUsername(string $username): ?UserInterface
     {
-        return static::where(static::keyName(), $value)->first();
+        return $this->newInstance(
+            $this->findBy('username', $username)->getAttributes()
+        );
     }
 }

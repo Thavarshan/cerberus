@@ -45,7 +45,7 @@ abstract class Filter implements FilterInterface
     /**
      * Apply the filters to database queries.
      *
-     * @param \Illuminate\Contracts\Database\Query\Builder $builder
+     * @param \Illuminate\Database\Eloquent\Builder $builder
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */

@@ -97,4 +97,14 @@ abstract class Response extends ResponseFactory
     ): RedirectResponse {
         return $this->redirect()->back($status, $headers, $fallback);
     }
+
+    /**
+     * Retrieve the oprional content.
+     *
+     * @return mixed
+     */
+    public function getContent(): mixed
+    {
+        return $this->content;
+    }
 }

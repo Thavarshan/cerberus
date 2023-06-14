@@ -2,9 +2,9 @@
 
 namespace Cerberus\Shared\Persistence\DTO;
 
-use Cerberus\Shared\Exceptions\JsonEncodingException;
 use Cerberus\Shared\Persistence\Models\Traits\Fillable;
 use Cerberus\Interfaces\Persistence\DTO as DTOInterface;
+use Cerberus\Shared\Persistence\Exceptions\JsonEncodingException;
 
 abstract class DTO implements DTOInterface
 {
@@ -49,7 +49,7 @@ abstract class DTO implements DTOInterface
     /**
      * Get all of the input items in the object.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function all(): array
     {
@@ -59,7 +59,7 @@ abstract class DTO implements DTOInterface
     /**
      * Get the instance as an array.
      *
-     * @return array<TKey, TValue>
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

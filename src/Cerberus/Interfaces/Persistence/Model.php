@@ -16,6 +16,13 @@ use Illuminate\Contracts\Support\CanBeEscapedWhenCastToString;
 interface Model extends Arrayable, ArrayAccess, CanBeEscapedWhenCastToString, HasBroadcastChannel, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable, Filterable, Fillable
 {
     /**
+     * Get all of the current attributes on the model.
+     *
+     * @return array
+     */
+    public function getAttributes();
+
+    /**
      * Get model's ID.
      *
      * @return int
@@ -61,14 +68,14 @@ interface Model extends Arrayable, ArrayAccess, CanBeEscapedWhenCastToString, Ha
     /**
      * Execute the query as a "select" statement.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection|array<static>
      */
     public function get(): Collection|array;
 
     /**
      * Execute the query and get the first result.
      *
-     * @return \Illuminate\Database\Eloquent\Model|object|static|null
+     * @return \Cerberus\Interfaces\Persistence\Model|null
      */
     public function first(): ?Model;
 

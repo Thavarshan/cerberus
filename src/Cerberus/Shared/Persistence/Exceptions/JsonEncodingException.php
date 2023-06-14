@@ -10,8 +10,8 @@ final class JsonEncodingException extends EloquentJsonEncodingException
     /**
      * Create a new JSON encoding exception for the dto.
      *
-     * @param mixed  $dto
-     * @param string $message
+     * @param \Cerberus\Interfaces\Persistence\DTO $dto
+     * @param string                               $message
      *
      * @return static
      */

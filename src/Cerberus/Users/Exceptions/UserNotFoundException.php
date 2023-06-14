@@ -5,7 +5,7 @@ namespace Cerberus\Users\Exceptions;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class UserNotFoundException extends \Exception
+final class UserNotFoundException extends \Exception
 {
     /**
      * Create a new exception instance.

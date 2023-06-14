@@ -5,23 +5,23 @@ namespace Cerberus\Shared\Persistence\Services;
 use Cerberus\Interfaces\Persistence\DTO;
 use Cerberus\Interfaces\Persistence\Model;
 use Cerberus\Interfaces\Persistence\Service;
-use Cerberus\Shared\Persistence\Repositories\AbstractRepository;
+use Cerberus\Interfaces\Persistence\Repository;
 
 abstract class AbstractService implements Service
 {
     /**
      * The repository instance.
      *
-     * @var \Cerberus\Shared\Persistence\Repositories\AbstractRepository
+     * @var \Cerberus\Interfaces\Persistence\Repository
      */
     protected $repository;
 
     /**
      * Get the repository instance.
      *
-     * @return \Cerberus\Shared\Persistence\Repositories\AbstractRepository
+     * @return \Cerberus\Interfaces\Persistence\Repository
      */
-    public function getRepository(): AbstractRepository
+    public function getRepository(): Repository
     {
         return $this->repository;
     }

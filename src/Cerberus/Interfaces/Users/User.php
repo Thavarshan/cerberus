@@ -39,4 +39,13 @@ interface User extends Model, AuthenticatableContract, AuthorizableContract, Can
      * @return \Cerberus\Interfaces\Users\User|null
      */
     public function findByEmail(string $email): ?User;
+
+    /**
+     * Find user by username.
+     *
+     * @param string $username
+     *
+     * @return \Cerberus\Interfaces\Users\User|null
+     */
+    public function findByUsername(string $username): ?User;
 }

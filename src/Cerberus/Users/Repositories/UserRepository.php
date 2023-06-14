@@ -62,6 +62,6 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      */
     public function findByUsername(string $username): User|null
     {
-        return $this->model->findBy('username', $username);
+        return $this->model->findByUsername($username);
     }
 }

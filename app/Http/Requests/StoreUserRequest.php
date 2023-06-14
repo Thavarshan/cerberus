@@ -1,11 +1,10 @@
 <?php
 
-namespace Cerberus\Users\Http\Requests;
+namespace App\Http\Requests;
 
 use App\Rules\PasswordRule;
 use Cerberus\Users\Models\User;
 use Illuminate\Validation\Rule;
-use App\Http\Requests\GetUserRequest;
 
 final class StoreUserRequest extends GetUserRequest
 {

@@ -31,7 +31,7 @@ abstract class Model extends EloquentModel implements ModelInterface
      *
      * @return \Cerberus\Interfaces\Persistence\Model|null
      */
-    public function find(int|string $id): ?Model
+    public function find(int|string $id): ?ModelInterface
     {
         return static::query()->find($id);
     }
@@ -44,7 +44,7 @@ abstract class Model extends EloquentModel implements ModelInterface
      *
      * @return \Cerberus\Interfaces\Persistence\Model|null
      */
-    public function findBy(string $key, string $value): ?Model
+    public function findBy(string $key, string $value): ?ModelInterface
     {
         return static::query()->where($key, $value)->first();
     }
@@ -64,7 +64,7 @@ abstract class Model extends EloquentModel implements ModelInterface
         mixed $operator = null,
         mixed $value = null,
         string $boolean = 'and'
-    ): Model {
+    ): ModelInterface {
         static::query()->where($column, $operator, $value, $boolean);
 
         return $this;
@@ -73,7 +73,7 @@ abstract class Model extends EloquentModel implements ModelInterface
     /**
      * Execute the query as a "select" statement.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection|array<static>
      */
     public function get(): Collection|array
     {
@@ -83,9 +83,9 @@ abstract class Model extends EloquentModel implements ModelInterface
     /**
      * Execute the query and get the first result.
      *
-     * @return \Illuminate\Database\Eloquent\Model|object|static|null
+     * @return \Cerberus\Interfaces\Persistence\Model|null
      */
-    public function first(): ?Model
+    public function first(): ?ModelInterface
     {
         return static::query()->first();
     }
@@ -97,8 +97,10 @@ abstract class Model extends EloquentModel implements ModelInterface
      *
      * @return \Cerberus\Interfaces\Persistence\Model
      */
-    public function create(DTO $dto): Model
+    public function create(DTO $dto): ModelInterface
     {
-        return static::query()->create($dto->getFillable());
+        $created = static::query()->create($dto->getFillable());
+
+        return $this->newInstance($created->getAttributes());
     }
 }
