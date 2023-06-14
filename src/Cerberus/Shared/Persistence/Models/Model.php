@@ -96,11 +96,13 @@ abstract class Model extends EloquentModel implements ModelInterface
      */
     public function first(): ?ModelInterface
     {
-        if (is_null($this->queryResults)) {
+        if (null === $this->queryResults) {
             return null;
         }
 
-        return $this->queryResults->first();
+        return $this->newInstance(
+            $this->queryResults->first()->getAttributes()
+        );
     }
 
     /**
