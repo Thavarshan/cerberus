@@ -48,7 +48,7 @@ abstract class AbstractService implements Service
      */
     public function findBy(string $key, string $value): ?Model
     {
-        return $this->repository->findBy($key, $value)->first();
+        return $this->repository->findBy($key, $value);
     }
 
     /**

@@ -44,7 +44,7 @@ abstract class AbstractRepository implements Repository
      * @param string $key
      * @param string $value
      *
-     * @return \Cerberus\Interfaces\Persistence\Model
+     * @return \Cerberus\Interfaces\Persistence\Model|null
      */
     public function findBy(string $key, string $value): ?Model
     {

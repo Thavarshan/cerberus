@@ -15,6 +15,13 @@ abstract class Model extends EloquentModel implements ModelInterface
     use Filterable;
 
     /**
+     * Query results.
+     *
+     * @var \Illuminate\Database\Eloquent\Builder
+     */
+    protected $queryResults;
+
+    /**
      * Get model's ID.
      *
      * @return int
@@ -65,7 +72,9 @@ abstract class Model extends EloquentModel implements ModelInterface
         mixed $value = null,
         string $boolean = 'and'
     ): ModelInterface {
-        static::query()->where($column, $operator, $value, $boolean);
+        $this->queryResults = static::query();
+
+        $this->queryResults->where($column, $operator, $value, $boolean);
 
         return $this;
     }
@@ -77,7 +86,7 @@ abstract class Model extends EloquentModel implements ModelInterface
      */
     public function get(): Collection|array
     {
-        return static::query()->get();
+        return $this->queryResults->get();
     }
 
     /**
@@ -87,7 +96,11 @@ abstract class Model extends EloquentModel implements ModelInterface
      */
     public function first(): ?ModelInterface
     {
-        return static::query()->first();
+        if (is_null($this->queryResults)) {
+            return null;
+        }
+
+        return $this->queryResults->first();
     }
 
     /**
@@ -99,7 +112,7 @@ abstract class Model extends EloquentModel implements ModelInterface
      */
     public function create(DTO $dto): ModelInterface
     {
-        $created = static::query()->create($dto->getFillable());
+        $created = static::query()->create($dto->all());
 
         return $this->newInstance($created->getAttributes());
     }

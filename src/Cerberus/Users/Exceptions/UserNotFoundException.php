@@ -65,6 +65,6 @@ final class UserNotFoundException extends \Exception
      */
     public function render(Request $request): Response
     {
-        return response($this->getMessage(), 404);
+        return response($this->getMessage(), Response::HTTP_NOT_FOUND);
     }
 }
