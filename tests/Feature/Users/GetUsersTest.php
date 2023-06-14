@@ -19,4 +19,19 @@ class GetUsersTest extends UserTestCase
 
         $this->assertCount(6, $data);
     }
+
+    public function testFilterUsers(): void
+    {
+        $user = $this->createUser(null, [
+            'username' => 'John',
+        ]);
+
+        $this->createUser(19);
+
+        $response = $this->actingAs($user)->getJson('/users?username=John');
+        $response->assertStatus(200);
+        $data = $response->json();
+
+        $this->assertCount(1, $data);
+    }
 }
