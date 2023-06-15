@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerberus\Tests\Concerns;
+namespace Cerberus\Tests\Traits;
 
 trait InteractsWithNetwork
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Traits;
 
-use Illuminate\Foundation\Auth\User;
+use App\Support\Credentials;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Cerberus\Interfaces\Users\UserService;
@@ -42,13 +42,16 @@ trait AuthorizesRequests
     /**
      * Determine if the user making the request is authorized to perform given action on resource.
      *
-     * @param string      $ability
-     * @param array|mixed $arguments
+     * @param string $ability
+     * @param mixed  $arguments
      *
      * @return bool
      */
-    public function isAllowed(string $ability, $arguments = [], bool $withoutAuthentication = true): bool
-    {
+    public function isAllowed(
+        string $ability,
+        mixed $arguments = [],
+        bool $withoutAuthentication = true
+    ): bool {
         if ($this->isAuthenticated() || $withoutAuthentication) {
             return Gate::allows($ability, $arguments);
         }
@@ -63,10 +66,15 @@ trait AuthorizesRequests
      */
     public function isUser(): bool
     {
-        $service = app(UserService::class);
-
         try {
-            $service->findBy('email', $this->input('email'));
+            tap(Credentials::username(), function (
+                string $username
+            ): void {
+                app(UserService::class)->findBy(
+                    $username,
+                    $this->input($username)
+                );
+            });
         } catch (UserNotFoundException $e) {
             return false;
         }
