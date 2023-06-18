@@ -14,8 +14,8 @@ if (! function_exists('create')) {
     function create(
         string $class,
         array $attributes = [],
-        ?string $condition = null,
-        ?int $times = null
+        string $condition = null,
+        int $times = null
     ) {
         $factory = $class::factory();
 
@@ -41,8 +41,8 @@ if (! function_exists('make')) {
     function make(
         string $class,
         array $attributes = [],
-        ?string $condition = null,
-        ?int $times = null
+        string $condition = null,
+        int $times = null
     ) {
         $factory = $class::factory();
 
