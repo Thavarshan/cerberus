@@ -5,17 +5,35 @@
         "removeComments": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "target": "es2017",
         "sourceMap": true,
         "outDir": "./dist",
-        "baseUrl": "./",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        },
         "incremental": true,
         "skipLibCheck": true,
         "strictNullChecks": false,
         "noImplicitAny": false,
         "strictBindCallApply": false,
         "forceConsistentCasingInFileNames": false,
-        "noFallthroughCasesInSwitch": false
-    }
+        "noFallthroughCasesInSwitch": false,
+        "types": [
+            "jest",
+            "node",
+            "@types/jest"
+        ],
+    },
+    "exclude": [
+        "node_modules",
+        "tests",
+        "dist",
+        "**/*spec.ts",
+        "**/*test.ts"
+    ]
 }
