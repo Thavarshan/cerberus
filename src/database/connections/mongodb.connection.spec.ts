@@ -16,18 +16,17 @@ jest.mock('mongoose', () => ({
 }));
 
 import { Test, TestingModule } from '@nestjs/testing';
-import { Connection } from './connection';
-import { Connection as MongoDdConnection } from 'mongoose';
-import { LoggerService } from '../logger/services/logger.service';
-import dbConfig from '../config/database.config';
+import { MongoDb } from './mongodb.connection';
+import { LoggerService } from '../../logger/services/logger.service';
+import dbConfig from '../../config/database.config';
 
 describe('Connection', () => {
-    let connection: Connection;
+    let connection: MongoDb;
 
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
             providers: [
-                Connection,
+                MongoDb,
                 {
                     provide: dbConfig.KEY,
                     useValue: {
@@ -43,7 +42,7 @@ describe('Connection', () => {
             ]
         }).compile();
 
-        connection = app.get<Connection>(Connection);
+        connection = app.get<MongoDb>(MongoDb);
     });
 
     it('should be defined', () => {

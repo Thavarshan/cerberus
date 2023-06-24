@@ -1,10 +1,10 @@
 import { Model as BaseModel, Schema } from 'mongoose';
 import { DB } from '@/database/enums/db.enum';
-import { Connection } from '@/database/connection';
+import { MongoDb } from '@/database/connections/mongodb.connection';
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
-export abstract class Model<T> {
+export abstract class AbstractModel<T> {
     /**
      * The table associated with the model.
      *
@@ -15,13 +15,13 @@ export abstract class Model<T> {
     /**
      * Create a new Model instance.
      *
-     * @param {Connection} connection
+     * @param {MongoDb} connection
      * @param {Schema} schema
      *
      * @return  {void}
      */
     constructor (
-        @Inject(DB.KEY) protected connection: Connection,
+        @Inject(DB.KEY) protected connection: MongoDb,
         protected schema: Schema
     ) { }
 

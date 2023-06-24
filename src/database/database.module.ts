@@ -2,7 +2,7 @@ import { LoggerModule } from '@/logger/logger.module';
 import { Config as ConfigModule } from '@/config/config.module';
 import dbConfig from '@/config/database.config';
 import { Module } from '@nestjs/common';
-import connectionProvider from './providers/connection.provider';
+import { providers } from './providers/connection.provider';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
 
@@ -19,8 +19,8 @@ import { ConfigService } from '@nestjs/config';
         })
     ],
 
-    providers: [...connectionProvider],
+    providers: [...providers],
 
-    exports: [...connectionProvider],
+    exports: [...providers],
 })
 export class DatabaseModule { }

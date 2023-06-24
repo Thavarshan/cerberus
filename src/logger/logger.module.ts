@@ -1,10 +1,10 @@
 import { DynamicModule } from '@nestjs/common';
-import { Logger } from './logger';
-import { LoggerService } from '@/logger/services/logger.service';
+import { DefaultLogger } from './loggers/default.logger';
+import { LoggerService } from './services/logger.service';
 
 export class LoggerModule {
     static forRoot (): DynamicModule {
-        const factory = new Logger();
+        const factory = new DefaultLogger();
         const prefixedLoggerProviders = factory.createProviders();
 
         return {

@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Connection, createConnection } from 'mongoose';
 import { LoggerModule } from '../../logger/logger.module';
 import mongodbConfig from '../../config/database.config';
-import connectionProvider from './connection.provider';
+import { providers } from './connection.provider';
 import { DB } from '../enums/db.enum';
 
 jest.mock('mongoose', () => ({
@@ -34,7 +34,7 @@ describe('DatabaseConnectionProviders', () => {
                 LoggerModule.forRoot()
             ],
 
-            providers: [...connectionProvider],
+            providers: [...providers],
         }).compile();
 
         connection = module.get<Connection>(DB.KEY);

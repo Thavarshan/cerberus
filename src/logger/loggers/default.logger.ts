@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Provider } from '@nestjs/common';
-import { prefixesForLoggers } from '@/logger/decorators/logger.decorator';
-import { LoggerService } from '@/logger/services/logger.service';
+import { prefixesForLoggers } from '../decorators/logger.decorator';
+import { LoggerService } from '../services/logger.service';
 
 @Injectable()
-export class Logger {
+export class DefaultLogger {
     /**
      * Create a logger service instance with appropriate prefix.
      *
-     * @param   {LoggerService}  logger
+     * @param   {LoggerService}  service
      * @param   {string}         prefix
      *
      * @return  {LoggerService}

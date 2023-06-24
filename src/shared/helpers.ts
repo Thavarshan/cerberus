@@ -1,3 +1,5 @@
+import HigherOrderTapProxy from './HigherOrderTapProxy';
+
 /**
  * Call the given Closure with the given value then return the value.
  *
@@ -11,7 +13,7 @@ export function tap (
     callback: (value: any) => void | undefined
 ): any {
     if (callback === undefined) {
-        return value;
+        return new HigherOrderTapProxy(value);
     }
 
     callback(value);

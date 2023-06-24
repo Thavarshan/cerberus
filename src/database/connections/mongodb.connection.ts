@@ -7,10 +7,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { Logger } from '@/logger/decorators/logger.decorator';
 import { LoggerService } from '@/logger/services/logger.service';
-import { ConnectionException } from './exceptions/connection.exception';
+import { ConnectionException } from '../exceptions/connection.exception';
 
 @Injectable()
-export class Connection extends MongoDdConnection {
+export class MongoDb extends MongoDdConnection {
     /**
      * The database URI string.
      *
