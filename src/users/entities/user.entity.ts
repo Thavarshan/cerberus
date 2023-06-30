@@ -4,19 +4,19 @@ import { Roles } from '../enums/roles.enum';
 
 @Entity({ name: 'users' })
 export class User implements UserInterface {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: number;
 
-    @Index()
-    @Column({ type: 'varchar', nullable: false })
+    @Index('idx_name')
+    @Column({ name: 'name', type: 'varchar', nullable: false })
     name: string;
 
-    @Index()
+    @Index('idx_username')
     @Column({ name: 'username', type: 'varchar', nullable: false, unique: true })
     username: string;
 
-    @Index({ unique: true })
-    @Column({ type: 'varchar', nullable: false, unique: true })
+    @Index('idx_email')
+    @Column({ name: 'email', type: 'varchar', nullable: false, unique: true })
     email: string;
 
     @Column({ type: 'varchar', nullable: false, unique: true })
