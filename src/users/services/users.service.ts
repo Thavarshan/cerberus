@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User as UserInterface } from '@/interfaces/users/user.entity';
 import { UsersService as UsersServiceInterface } from '@/interfaces/users/users.service';
 import { UsersRepository } from '../repositories/users.repository';
@@ -48,8 +48,14 @@ export class UsersService implements UsersServiceInterface {
      *
      * @returns {Promise<UserInterface>}
      */
-    public async findOne (id: number): Promise<UserInterface> {
-        return await this.repository.findOneBy({ id });
+    public async findOne (id: number | string): Promise<UserInterface> {
+        const user = await this.repository.findOneBy({ id });
+
+        if (user === null) {
+            throw new NotFoundException(`User with id ${id} not found.`);
+        }
+
+        return user;
     }
 
     /**
@@ -60,10 +66,15 @@ export class UsersService implements UsersServiceInterface {
      *
      * @returns {Promise<UserInterface>}
      */
-    public async update (id: number, dto: UpdateUserDto): Promise<UserInterface> {
-        await this.repository.update(id, dto);
+    public async update (
+        id: number | string,
+        dto: UpdateUserDto
+    ): Promise<UserInterface> {
+        const user = await this.findOne(id);
 
-        return await this.findOne(id);
+        await this.repository.update(user.id, dto);
+
+        return user;
     }
 
     /**
@@ -73,7 +84,9 @@ export class UsersService implements UsersServiceInterface {
      *
      * @returns {Promise<void>}
      */
-    public async remove (id: number): Promise<void> {
-        await this.repository.delete(id);
+    public async remove (id: number | string): Promise<void> {
+        const user = await this.findOne(id);
+
+        await this.repository.delete(user.id);
     }
 }

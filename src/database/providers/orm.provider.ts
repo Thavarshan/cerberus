@@ -42,7 +42,7 @@ export class OrmModule {
         return {
             ...connectionConfig, ...{
                 type: process.env.DB_CONNECTION || 'mysql',
-                synchronize: false,
+                synchronize: Boolean(process.env.APP_ENV === 'local'),
                 logging: false,
                 entities,
                 ssl: {

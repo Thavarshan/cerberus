@@ -78,9 +78,12 @@ describe('UsersService', () => {
     });
 
     it('should call remove with the passed value', async () => {
+        const findOneSpy = jest.spyOn(repository, 'findOneBy')
+            .mockReturnValue(new Promise((resolve) => resolve({ id: 2 } as any)));
         const removeSpy = jest.spyOn(repository, 'delete');
         const retVal = await service.remove(2);
 
+        expect(findOneSpy).toBeCalledWith({ id: 2 });
         expect(removeSpy).toBeCalledWith(2);
         expect(retVal).toBeUndefined();
     });

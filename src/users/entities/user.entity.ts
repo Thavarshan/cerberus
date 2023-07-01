@@ -5,7 +5,7 @@ import { Roles } from '../enums/roles.enum';
 @Entity({ name: 'users' })
 export class User implements UserInterface {
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: number | string;
 
     @Index('idx_name')
     @Column({ name: 'name', type: 'varchar', nullable: false })
