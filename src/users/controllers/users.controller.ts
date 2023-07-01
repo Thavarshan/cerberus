@@ -66,7 +66,7 @@ export class UsersController {
     @HttpCode(HttpStatus.NO_CONTENT)
     // @UseGuards(JwtAuthGuard)
     @Delete(':id')
-    public async remove (@Param('id') id: number | string): Promise<void> {
-        await this.service.remove(id);
+    public async delete (@Param('id') id: number | string): Promise<void> {
+        await this.service.delete(id);
     }
 }

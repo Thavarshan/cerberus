@@ -59,6 +59,57 @@ export class UsersService implements UsersServiceInterface {
     }
 
     /**
+     * Query the database for a user with the given email.
+     *
+     * @param {string} email
+     *
+     * @returns {Promise<User>}
+     */
+    public async findByEmail (email: string): Promise<User> {
+        const user = await this.repository.findOneBy({ email });
+
+        if (!user) {
+            throw new NotFoundException(`User with email ${email} not found.`);
+        }
+
+        return user;
+    }
+
+    /**
+     * Query the database for a user with the given username.
+     *
+     * @param {string} username
+     *
+     * @returns {Promise<User>}
+     */
+    public async findByUsername (username: string): Promise<User> {
+        const user = await this.repository.findOneBy({ username });
+
+        if (!user) {
+            throw new NotFoundException(`User with username ${username} not found.`);
+        }
+
+        return user;
+    }
+
+    /**
+     * Query the database for the existance of the user with the given email.
+     *
+     * @param {string} email
+     *
+     * @returns {Promise<User>}
+     */
+    public async existsByEmail (email: string): Promise<boolean> {
+        try {
+            await this.findByEmail(email);
+        } catch (error) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Find the user with the given id and update the details of the user.
      *
      * @param {string} id
@@ -84,7 +135,7 @@ export class UsersService implements UsersServiceInterface {
      *
      * @returns {Promise<void>}
      */
-    public async remove (id: number | string): Promise<void> {
+    public async delete (id: number | string): Promise<void> {
         const user = await this.findOne(id);
 
         await this.repository.delete(user.id);

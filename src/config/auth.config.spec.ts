@@ -1,6 +1,6 @@
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TestingModule, Test } from '@nestjs/testing';
-import authConfig from './auth.config';
+import { authConfig } from './auth.config';
 
 describe('AuthConfig', () => {
     let config: ConfigType<typeof authConfig>;

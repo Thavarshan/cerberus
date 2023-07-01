@@ -50,7 +50,7 @@ describe('UsersController', () => {
                                 id,
                             }),
                         ),
-                        remove: jest.fn(),
+                        delete: jest.fn(),
                     },
                 },
             ],
@@ -91,8 +91,8 @@ describe('UsersController', () => {
     });
 
     it('should remove the user', () => {
-        controller.remove(2);
+        controller.delete(2);
 
-        expect(service.remove).toHaveBeenCalled();
+        expect(service.delete).toHaveBeenCalled();
     });
 });

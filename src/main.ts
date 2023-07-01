@@ -22,7 +22,7 @@ async function bootstrap () {
 
     await app.listen(PORT);
 
-    info(`App URL accessible on http://localhost:${PORT}`);
+    info(`Application is running on: ${await app.getUrl()}`);
 }
 
 bootstrap();

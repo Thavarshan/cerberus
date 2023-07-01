@@ -6,7 +6,7 @@ import { LoggerModule } from '@/logger/logger.module';
 import { MailModule } from '@/mail/mail.module';
 import { ConfigModule } from '@/config/config.module';
 import { UsersModule } from '@/users/users.module';
-// import { AuthModule } from '@/auth/auth.module';
+import { AuthModule } from '@/auth/auth.module';
 
 @Module({
     imports: [
@@ -15,7 +15,7 @@ import { UsersModule } from '@/users/users.module';
         MailModule,
         DatabaseModule,
         UsersModule,
-        // AuthModule
+        AuthModule
     ],
 
     controllers: [AppController],
