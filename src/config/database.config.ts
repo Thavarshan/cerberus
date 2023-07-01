@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config';
 
-export default registerAs('database', () => ({
+const dbConfig = registerAs('database', () => ({
     defaults: {
         connection: process.env.DB_CONNECTION || 'mysql',
     },
@@ -12,12 +12,12 @@ export default registerAs('database', () => ({
             password: process.env.DB_PASSWORD || '',
             port: parseInt(process.env.DB_PORT, 10) || 3306,
             host: process.env.DB_HOST || '127.0.0.1',
-            uri: process.env.DB_URI,
+            url: process.env.DB_URL,
         },
 
         mongodb: {
             database: process.env.DB_DATABASE || 'cerberus',
-            uri: process.env.DB_URI || 'mongodb://localhost/cerberus',
+            url: process.env.DB_URL || 'mongodb://localhost/cerberus',
             options: {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
@@ -27,3 +27,5 @@ export default registerAs('database', () => ({
         }
     }
 }));
+
+export { dbConfig };
