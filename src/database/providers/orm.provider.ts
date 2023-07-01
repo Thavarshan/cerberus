@@ -1,11 +1,8 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { entities } from './entities.manifest';
 import { DynamicModule, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 
-@Module({
-    providers: [ConfigModule],
-})
+@Module({})
 export class OrmModule {
     /**
      * This is a factory function that returns a DynamicModule.
