@@ -52,7 +52,7 @@ export class UsersService implements UsersServiceInterface {
         const user = await this.repository.findOneBy({ id });
 
         if (user === null) {
-            throw new NotFoundException(`User with id ${id} not found.`);
+            throw new NotFoundException(`User with id [${id}] not found.`);
         }
 
         return user;
