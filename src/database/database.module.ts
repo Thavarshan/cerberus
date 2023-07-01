@@ -11,6 +11,4 @@ import { OrmModule } from './providers/orm.provider';
         OrmModule.forRoot(),
     ],
 })
-export class DatabaseModule {
-    //
-}
+export class DatabaseModule { }
