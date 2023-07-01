@@ -77,6 +77,19 @@ describe('UsersService', () => {
         expect(repoSpy).toBeCalledWith({ id: 1 });
     });
 
+    it('should call update with the passed value', async () => {
+        oneUser['id'] = 2;
+        const findOneSpy = jest.spyOn(repository, 'findOneBy')
+            .mockReturnValue(new Promise((resolve) => resolve(oneUser as any)));
+        const updateSpy = jest.spyOn(repository, 'update')
+            .mockReturnValue(new Promise((resolve) => (resolve(oneUser as any))));
+        const retVal = await service.update(2, { name: 'John Doe' });
+
+        expect(findOneSpy).toBeCalledWith({ id: 2 });
+        expect(updateSpy).toBeCalledWith(2, { name: 'John Doe' });
+        expect(retVal).toEqual(oneUser);
+    });
+
     it('should call remove with the passed value', async () => {
         const findOneSpy = jest.spyOn(repository, 'findOneBy')
             .mockReturnValue(new Promise((resolve) => resolve({ id: 2 } as any)));
