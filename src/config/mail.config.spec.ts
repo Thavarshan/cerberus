@@ -1,6 +1,6 @@
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TestingModule, Test } from '@nestjs/testing';
-import mailConfig from './mail.config';
+import { mailConfig } from './mail.config';
 
 describe('MailConfig', () => {
     let config: ConfigType<typeof mailConfig>;

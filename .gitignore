@@ -37,3 +37,4 @@ lerna-debug.log*
 # Docker
 .mysql-data
 .env
+notes.txt

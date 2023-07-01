@@ -1,6 +1,6 @@
 import { ConfigType } from '@nestjs/config';
 import { MailService } from '@sendgrid/mail';
-import mailConfig from '@/config/mail.config';
+import { mailConfig } from '@/config/mail.config';
 import { Mail } from '../enums/mail.enum';
 import { Provider } from '@nestjs/common';
 
