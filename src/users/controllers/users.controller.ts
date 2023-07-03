@@ -50,14 +50,14 @@ export class UsersController {
 
     // @UseGuards(JwtAuthGuard)
     @Get(':id')
-    public async findOne (@Param('id') id: number | string): Promise<User> {
+    public async findOne (@Param('id') id: string): Promise<User> {
         return await this.service.findOne(id);
     }
 
     // @UseGuards(JwtAuthGuard)
     @Patch(':id')
     public async update (
-        @Param('id') id: number | string,
+        @Param('id') id: string,
         @Body() dto: UpdateUserDto
     ): Promise<User> {
         return await this.service.update(id, dto);
@@ -66,7 +66,7 @@ export class UsersController {
     @HttpCode(HttpStatus.NO_CONTENT)
     // @UseGuards(JwtAuthGuard)
     @Delete(':id')
-    public async delete (@Param('id') id: number | string): Promise<void> {
+    public async delete (@Param('id') id: string): Promise<void> {
         await this.service.delete(id);
     }
 }

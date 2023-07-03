@@ -17,8 +17,9 @@ describe('AppConfig', () => {
         expect(appConfig).toBeDefined();
     });
 
-    it('should contains uri key', async () => {
-        expect(config.key).toBe(undefined);
-        expect(config.port).toBe(3001);
+    it('should contain basic configs', async () => {
+        expect(config.name).toBe('Cerberus');
+        expect(config.key).toBeUndefined();
+        expect(config.port).toBeDefined();
     });
 });

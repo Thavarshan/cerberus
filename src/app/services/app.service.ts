@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { HealthService } from '@/health/services/health.service';
+import { AppService as AppServiceInterface } from '@/interfaces/app/app.service';
 
 @Injectable()
-export class AppService {
+export class AppService implements AppServiceInterface {
     /**
      * Create new AppService instance.
      *

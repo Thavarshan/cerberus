@@ -7,11 +7,11 @@ import { CreateUserDto } from '../src/users/dto/create-user.dto';
 
 describe('Users - /users (e2e)', () => {
     const users = {
-        id: '1',
-        name: 'John Doe',
-        username: 'johndoe',
-        email: 'john@example.com',
-        password: 'secret'
+        id: '16358eb1-9860-4ee6-a105-76a02d98386f',
+        name: 'John Doe E2E',
+        username: 'johnDoeE2E',
+        email: 'john.e2e@example.com',
+        password: 'secret123e2e'
     };
 
     let app: INestApplication;
@@ -65,7 +65,7 @@ describe('Users - /users (e2e)', () => {
 
     it('Get one user [GET /users/:id]', () => {
         return request(app.getHttpServer())
-            .get('/users/1')
+            .get('/users/16358eb1-9860-4ee6-a105-76a02d98386f')
             .expect(200)
             .then(({ body }) => {
                 expect(body).toBeDefined();
@@ -73,7 +73,7 @@ describe('Users - /users (e2e)', () => {
     });
 
     it('Delete one user [DELETE /users/:id]', () => {
-        return request(app.getHttpServer()).delete('/users/1').expect(204);
+        return request(app.getHttpServer()).delete('/users/16358eb1-9860-4ee6-a105-76a02d98386f').expect(204);
     });
 
     afterAll(async () => {

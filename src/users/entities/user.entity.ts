@@ -1,39 +1,43 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index, OneToMany } from 'typeorm';
 import { User as UserInterface } from '@/interfaces/users/user.entity';
 import { Roles } from '../enums/roles.enum';
+import { RefreshSession } from '@/auth/entities/refresh-session.entity';
 
 @Entity({ name: 'users' })
 export class User implements UserInterface {
     @PrimaryGeneratedColumn('uuid')
-    id: number | string;
+    public readonly id: string;
 
     @Index('idx_name')
     @Column({ name: 'name', type: 'varchar', nullable: false })
-    name: string;
+    public name: string;
 
     @Index('idx_username')
     @Column({ name: 'username', type: 'varchar', nullable: false, unique: true })
-    username: string;
+    public username: string;
 
     @Index('idx_email')
     @Column({ name: 'email', type: 'varchar', nullable: false, unique: true })
-    email: string;
+    public email: string;
 
     @Column({ type: 'varchar', nullable: false, unique: true })
-    password: string;
+    public password: string;
 
     @Column({ type: 'varchar', nullable: true })
-    phone?: string;
+    public phone?: string;
 
     @Column({ type: 'varchar', nullable: false, default: Roles.USER })
-    role?: Roles;
+    public role?: Roles;
 
     @Column({ type: 'boolean', nullable: true, default: false })
-    verified: boolean;
+    public verified: boolean;
 
     @Column({ type: 'int', nullable: true, default: 0 })
-    loginAttempts?: number;
+    public loginAttempts?: number;
 
     @Column({ type: 'datetime', nullable: true, default: null })
-    blockedAt?: Date;
+    public blockedAt?: Date;
+
+    @OneToMany(() => RefreshSession, refreshSession => refreshSession.user)
+    public sessions?: Partial<RefreshSession>[];
 }

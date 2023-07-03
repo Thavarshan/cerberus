@@ -21,7 +21,7 @@
         "test:watch": "jest --watch",
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:e2e": "jest --config ./tests/jest-e2e.json",
+        "test:e2e": "jest --config ./tests/jest-e2e.json --verbose",
         "pre-commit": "npm run lint && npm run build && npm run test && npm run test:e2e",
         "docker:setup": "chmod +x ./bin/docker.sh && ./bin/docker.sh"
     },
@@ -40,6 +40,7 @@
         "bcrypt": "^5.1.0",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.14.0",
+        "fs": "^0.0.1-security",
         "iconv-lite": "^0.6.3",
         "lodash": "^4.17.21",
         "mongoose": "^7.3.1",

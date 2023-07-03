@@ -73,31 +73,31 @@ describe('UsersService', () => {
     it('should get a single user', () => {
         const repoSpy = jest.spyOn(repository, 'findOneBy');
 
-        expect(service.findOne(1)).resolves.toEqual(oneUser);
-        expect(repoSpy).toBeCalledWith({ id: 1 });
+        expect(service.findOne('1')).resolves.toEqual(oneUser);
+        expect(repoSpy).toBeCalledWith({ id: '1' });
     });
 
     it('should call update with the passed value', async () => {
-        oneUser['id'] = 2;
+        oneUser['id'] = '2';
         const findOneSpy = jest.spyOn(repository, 'findOneBy')
             .mockReturnValue(new Promise((resolve) => resolve(oneUser as any)));
         const updateSpy = jest.spyOn(repository, 'update')
             .mockReturnValue(new Promise((resolve) => (resolve(oneUser as any))));
-        const retVal = await service.update(2, { name: 'John Doe' });
+        const retVal = await service.update('2', { name: 'John Doe' });
 
-        expect(findOneSpy).toBeCalledWith({ id: 2 });
-        expect(updateSpy).toBeCalledWith(2, { name: 'John Doe' });
+        expect(findOneSpy).toBeCalledWith({ id: '2' });
+        expect(updateSpy).toBeCalledWith('2', { name: 'John Doe' });
         expect(retVal).toEqual(oneUser);
     });
 
     it('should call remove with the passed value', async () => {
         const findOneSpy = jest.spyOn(repository, 'findOneBy')
-            .mockReturnValue(new Promise((resolve) => resolve({ id: 2 } as any)));
+            .mockReturnValue(new Promise((resolve) => resolve({ id: '2' } as any)));
         const removeSpy = jest.spyOn(repository, 'delete');
-        const retVal = await service.delete(2);
+        const retVal = await service.delete('2');
 
-        expect(findOneSpy).toBeCalledWith({ id: 2 });
-        expect(removeSpy).toBeCalledWith(2);
+        expect(findOneSpy).toBeCalledWith({ id: '2' });
+        expect(removeSpy).toBeCalledWith('2');
         expect(retVal).toBeUndefined();
     });
 });

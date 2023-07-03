@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { info } from 'console';
 import { LoggerService } from '@/logger/services/logger.service';
 import corsConfig from '@/config/cors.config';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap () {
     const app = await NestFactory.create(AppModule);
@@ -18,11 +19,13 @@ async function bootstrap () {
 
     app.useLogger(new LoggerService());
 
-    const PORT = process.env.APP_PORT || 3000;
+    const config = app.get(ConfigService);
 
-    await app.listen(PORT);
+    const post = config.get<number>('app.port') || 3000;
 
-    info(`App URL accessible on http://localhost:${PORT}`);
+    await app.listen(post);
+
+    info(`App URL accessible on http://localhost:${post}`);
 }
 
 bootstrap();

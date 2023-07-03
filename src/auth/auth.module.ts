@@ -9,11 +9,15 @@ import { ConfigModule, ConfigType } from '@nestjs/config';
 import { RegisterController } from './controllers/register.controller';
 import { RegisterService } from './services/register.service';
 import { authConfig } from '@/config/auth.config';
+import { RefreshSession } from './entities/refresh-session.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RefreshSessionService } from './services/refresh-session.service';
 
 @Module({
     imports: [
         UsersModule,
-        ConfigModule.forRoot(),
+        ConfigModule.forFeature(authConfig),
+        TypeOrmModule.forFeature([RefreshSession]),
         JwtModule.registerAsync({
             inject: [authConfig.KEY],
             imports: [ConfigModule.forFeature(authConfig)],
@@ -27,6 +31,7 @@ import { authConfig } from '@/config/auth.config';
     ],
     providers: [
         RegisterService,
+        RefreshSessionService,
         AuthService,
         {
             provide: APP_GUARD,

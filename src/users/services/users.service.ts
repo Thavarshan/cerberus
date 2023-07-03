@@ -48,7 +48,7 @@ export class UsersService implements UsersServiceInterface {
      *
      * @returns {Promise<UserInterface>}
      */
-    public async findOne (id: number | string): Promise<UserInterface> {
+    public async findOne (id: string): Promise<UserInterface> {
         const user = await this.repository.findOneBy({ id });
 
         if (user === null) {
@@ -118,7 +118,7 @@ export class UsersService implements UsersServiceInterface {
      * @returns {Promise<UserInterface>}
      */
     public async update (
-        id: number | string,
+        id: string,
         dto: UpdateUserDto
     ): Promise<UserInterface> {
         const user = await this.findOne(id);
@@ -135,7 +135,7 @@ export class UsersService implements UsersServiceInterface {
      *
      * @returns {Promise<void>}
      */
-    public async delete (id: number | string): Promise<void> {
+    public async delete (id: string): Promise<void> {
         const user = await this.findOne(id);
 
         await this.repository.delete(user.id);

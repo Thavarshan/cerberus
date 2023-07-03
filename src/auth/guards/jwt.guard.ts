@@ -1,10 +1,12 @@
+import { authConfig } from '@/config/auth.config';
 import {
     CanActivate,
     ExecutionContext,
+    Inject,
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigType } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
@@ -13,9 +15,10 @@ import { Auth } from '../enums/auth.enum';
 @Injectable()
 export class JwtGuard implements CanActivate {
     constructor (
+        @Inject(authConfig.KEY)
+        protected readonly config: ConfigType<typeof authConfig>,
         private readonly jwt: JwtService,
-        private readonly reflector: Reflector,
-        protected readonly config: ConfigService
+        private readonly reflector: Reflector
     ) { }
 
     public async canActivate (context: ExecutionContext): Promise<boolean> {
@@ -33,19 +36,19 @@ export class JwtGuard implements CanActivate {
         const token = this.extractTokenFromHeader(request);
 
         if (!token) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException('Invalid token');
         }
 
         try {
             const payload = await this.jwt.verifyAsync(token, {
-                secret: this.config.get<string>('secretKey'),
+                secret: this.config.secretKey,
             });
 
             // 💡 We're assigning the payload to the request object here
             // so that we can access it in our route handlers
             request['user'] = payload;
-        } catch {
-            throw new UnauthorizedException();
+        } catch (error) {
+            throw new UnauthorizedException(error.message);
         }
 
         return true;

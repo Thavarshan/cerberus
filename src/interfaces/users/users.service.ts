@@ -25,7 +25,7 @@ export interface UsersService {
      *
      * @returns {Promise<UserInterface>}
      */
-    findOne (id: number | string): Promise<User>;
+    findOne (id: string): Promise<User>;
 
     /**
      * Query the database for a user with the given email.
@@ -62,7 +62,7 @@ export interface UsersService {
      *
      * @returns {Promise<UserInterface>}
      */
-    update (id: number | string, dto: UserDto): Promise<any>;
+    update (id: string, dto: UserDto): Promise<any>;
 
     /**
      * Find the user with the given id and remove the user from the database.
@@ -71,5 +71,5 @@ export interface UsersService {
      *
      * @returns {Promise<void>}
      */
-    delete (id: number | string): Promise<void>;
+    delete (id: string): Promise<void>;
 }

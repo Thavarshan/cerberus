@@ -73,25 +73,25 @@ describe('UsersController', () => {
         expect(service.create).toHaveBeenCalledWith(createUserDto);
     });
 
-    it('should find all users ', () => {
+    it('should find all users', () => {
         controller.findAll();
 
         expect(service.findAll).toHaveBeenCalled();
     });
 
     it('should find a user', () => {
-        expect(controller.findOne(1)).resolves.toEqual({
+        expect(controller.findOne('1')).resolves.toEqual({
             name: 'John Doe',
             username: 'johndoe',
             email: 'john@example.com',
             password: 'secret',
-            id: 1,
+            id: '1',
         });
         expect(service.findOne).toHaveBeenCalled();
     });
 
     it('should remove the user', () => {
-        controller.delete(2);
+        controller.delete('2');
 
         expect(service.delete).toHaveBeenCalled();
     });
