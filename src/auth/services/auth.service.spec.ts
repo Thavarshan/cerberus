@@ -39,8 +39,7 @@ describe('AuthService', () => {
                     useValue: {
                         new: jest.fn().mockResolvedValue(authConfig),
                         constructor: jest.fn().mockResolvedValue(authConfig),
-                        secretKey: 'secret-key',
-                        secretRefreshKey: 'secret-refresh-key',
+                        secretKey: 'secret-key'
                     }
                 },
                 {
@@ -147,15 +146,5 @@ describe('AuthService', () => {
         expect(refreshSession.findByRefreshToken).toBeCalled();
         expect(jwt.decode).toBeCalled();
         expect(jwt.decode).toBeCalled();
-    });
-
-    it('should logout a user', async () => {
-        jest.spyOn(users, 'update')
-            .mockReturnValue(new Promise((resolve) => resolve({} as User)));
-
-        const result = await service.logout({} as User);
-
-        expect(result).toBeUndefined();
-        expect(users.update).toBeCalled();
     });
 });

@@ -42,8 +42,8 @@ describe('Auth - /auth (e2e)', () => {
             .set('Authorization', 'Bearer ' + token)
             .expect(200)
             .expect(({ body }) => {
-                expect(body.sub).to.equal('1');
-                expect(body.username).to.equal('john@example.com');
+                expect(body.name).to.equal('John Doe');
+                expect(body.username).to.equal('johndoe');
             });
     });
 

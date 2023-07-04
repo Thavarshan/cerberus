@@ -6,8 +6,4 @@ export class UpdateUserDto extends PartialType(UserDto) {
     @IsOptional()
     @IsString()
     public readonly id?: string;
-
-    @IsOptional()
-    @IsString()
-    public readonly refreshToken?: string;
 }

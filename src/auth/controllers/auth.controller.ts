@@ -40,10 +40,4 @@ export class AuthController {
     ): Promise<any> {
         return await this.service.refreshToken(refreshToken);
     }
-
-    @HttpCode(HttpStatus.OK)
-    @Post('logout')
-    public async logout (@User() user: UserInterface): Promise<void> {
-        return await this.service.logout(user);
-    }
 }

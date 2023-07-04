@@ -1,4 +1,5 @@
 import { authConfig } from '@/config/auth.config';
+import { UsersService } from '@/users/services/users.service';
 import {
     CanActivate,
     ExecutionContext,
@@ -17,8 +18,9 @@ export class JwtGuard implements CanActivate {
     constructor (
         @Inject(authConfig.KEY)
         protected readonly config: ConfigType<typeof authConfig>,
-        private readonly jwt: JwtService,
-        private readonly reflector: Reflector
+        protected readonly jwt: JwtService,
+        protected readonly users: UsersService,
+        protected readonly reflector: Reflector
     ) { }
 
     public async canActivate (context: ExecutionContext): Promise<boolean> {
@@ -46,7 +48,11 @@ export class JwtGuard implements CanActivate {
 
             // 💡 We're assigning the payload to the request object here
             // so that we can access it in our route handlers
-            request['user'] = payload;
+            request['payload'] = payload;
+
+            const user = await this.users.findByEmail(payload.username);
+
+            request['user'] = user;
         } catch (error) {
             throw new UnauthorizedException(error.message);
         }

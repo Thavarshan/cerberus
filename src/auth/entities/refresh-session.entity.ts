@@ -13,7 +13,7 @@ export class RefreshSession implements RefreshSessionInterface {
     @PrimaryGeneratedColumn()
     public readonly id: number;
 
-    @ManyToOne(() => User, user => user.sessions)
+    @ManyToOne(() => User, user => user.sessions, { onDelete: 'CASCADE' })
     public user: Partial<User>;
 
     @Index('idx_refresh_token')

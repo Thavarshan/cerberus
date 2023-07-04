@@ -168,15 +168,4 @@ export class AuthService implements AuthServiceInterface {
             createdAt: decodedRefreshToken.iat
         } as UpdateRefreshSessionDto);
     }
-
-    /**
-     * Logout the currently authenticated user.
-     *
-     * @param {UserInterface} user
-     *
-     * @returns {Promise<void>}
-     */
-    public async logout (user: UserInterface): Promise<void> {
-        await this.users.update(user.id, { refreshToken: null });
-    }
 }
