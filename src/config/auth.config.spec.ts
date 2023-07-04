@@ -20,6 +20,5 @@ describe('AuthConfig', () => {
     it('should contains expiresIn and secret key', async () => {
         expect(config.expiresIn).toBe('24h');
         expect(config.secretKey).toBeDefined();
-        expect(config.secretKey).toBeDefined();
     });
 });

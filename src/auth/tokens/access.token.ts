@@ -1,9 +1,10 @@
 import { authConfig } from '@/config/auth.config';
+import { Token } from '@/interfaces/auth/token';
 import { User } from '@/interfaces/users/user.entity';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
-export class AccessToken {
+export class AccessToken implements Token {
     /**
      * Create new AccessToken instance.
      *
@@ -28,7 +29,7 @@ export class AccessToken {
         return await this.jwt.signAsync(
             {
                 sub: this.user.id,
-                username: this.user.email,
+                username: this.user.email
             },
             {
                 secret: this.config.secretKey,

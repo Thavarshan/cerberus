@@ -12,6 +12,7 @@ import { Credentials } from '../dto/credentials.dto';
 import { Public } from '../decorators/public.decorator';
 import { User } from '../decorators/user.decorator';
 import { RefreshToken } from '../decorators/refresh.decorator';
+import { AuthResponse } from '@/interfaces/auth/auth-response';
 
 @Controller()
 export class AuthController {
@@ -20,7 +21,7 @@ export class AuthController {
     @Public()
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    public async login (@Body() dto: Credentials): Promise<any> {
+    public async login (@Body() dto: Credentials): Promise<AuthResponse> {
         return await this.service.authenticate(dto);
     }
 

@@ -14,6 +14,7 @@ import { RefreshSessionService } from './refresh-session.service';
 import { RefreshSession } from '../entities/refresh-session.entity';
 import { UpdateRefreshSessionDto } from '../dto/update-refresh-session.dto';
 import { CreateRefreshSessionDto } from '../dto/create-refresh-session.dto';
+import { AuthResponse } from '@/interfaces/auth/auth-response';
 
 @Injectable()
 export class AuthService implements AuthServiceInterface {
@@ -40,11 +41,11 @@ export class AuthService implements AuthServiceInterface {
      *
      * @param {Credentials} credentials
      *
-     * @returns {Promise<{ [key: string]: any; }>}
+     * @returns {Promise<AuthResponse>}
      */
     public async authenticate (
         credentials: Credentials
-    ): Promise<any> {
+    ): Promise<AuthResponse> {
         const user = await this.users.findByEmail(credentials.email);
 
         compare(credentials.password, user.password, (error, result) => {
@@ -76,7 +77,7 @@ export class AuthService implements AuthServiceInterface {
         try {
             decodedToken = this.jwt.verify(token);
         } catch (error) {
-            throw new UnauthorizedException('Invalid refresh token');
+            throw new UnauthorizedException(error.message);
         }
 
         const user: User = await this

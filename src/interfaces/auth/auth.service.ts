@@ -1,5 +1,5 @@
-import { AccessToken } from './access.token';
 import { Credentials } from './credentials.interface';
+import { AuthResponse } from './auth-response';
 
 export interface AuthService {
     /**
@@ -7,7 +7,7 @@ export interface AuthService {
      *
      * @param {Credentials} credentials
      *
-     * @returns {Promise<{ [key: string]: any; }>}
+     * @returns {Promise<AuthResponse>}
      */
-    authenticate (credentials: Credentials): Promise<AccessToken>;
+    authenticate (credentials: Credentials): Promise<AuthResponse>;
 }
