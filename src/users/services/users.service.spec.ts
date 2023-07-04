@@ -56,12 +56,17 @@ describe('UsersService', () => {
     });
 
     it('should successfully create a user', () => {
+        const repoSpy = jest.spyOn(repository, 'findOneBy')
+            .mockReturnValue(new Promise((resolve) => resolve(undefined)));
+
         expect(service.create({
             name: 'John Doe',
             username: 'johndoe',
             email: 'john@example.com',
             password: 'secret'
         })).resolves.toEqual(oneUser);
+
+        expect(repoSpy).toBeCalled();
     });
 
     it('should return an array of users', async () => {

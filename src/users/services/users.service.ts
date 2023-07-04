@@ -6,6 +6,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserAlreadyExistsException } from '../exceptions/user-already-exists.exception';
 
 @Injectable()
 export class UsersService implements UsersServiceInterface {
@@ -29,6 +30,14 @@ export class UsersService implements UsersServiceInterface {
      * @returns {Promise<UserInterface>}
      */
     public async create (dto: CreateUserDto): Promise<UserInterface> {
+        if (await this.existsByEmail(dto.email)) {
+            throw new UserAlreadyExistsException('email', dto.email);
+        }
+
+        if (await this.existsByUsername(dto.username)) {
+            throw new UserAlreadyExistsException('username', dto.username);
+        }
+
         return await this.repository.save(dto);
     }
 
@@ -102,6 +111,23 @@ export class UsersService implements UsersServiceInterface {
     public async existsByEmail (email: string): Promise<boolean> {
         try {
             await this.findByEmail(email);
+        } catch (error) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Query the database for the existance of the user with the given username.
+     *
+     * @param {string} username
+     *
+     * @returns {Promise<User>}
+     */
+    public async existsByUsername (username: string): Promise<boolean> {
+        try {
+            await this.findByUsername(username);
         } catch (error) {
             return false;
         }
