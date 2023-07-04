@@ -60,7 +60,7 @@ YYYY-MM-DDTHH:MM:SSZ
 
 ### Authentication
 
-There is only one way to authenticate through MacroActivists API. Requests that require authentication will return `401 invalid token/signature`. This is to show the validity of the authorization token used.
+There is only one way to authenticate through Cerberus API. Requests that require authentication will return `401 invalid token/signature`. This is to show the validity of the authorization token used.
 
 #### JWT Token (sent in header)
 
