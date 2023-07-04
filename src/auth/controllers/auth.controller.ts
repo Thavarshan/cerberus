@@ -40,7 +40,7 @@ export class AuthController {
     public async refreshTokens (
         @RefreshToken() refreshToken: string
     ): Promise<any> {
-        return await this.service.refreshTokens(refreshToken);
+        return await this.service.refreshToken(refreshToken);
     }
 
     @HttpCode(HttpStatus.OK)

@@ -69,6 +69,7 @@ describe('AuthService', () => {
                         constructor: jest.fn(),
                         create: jest.fn(),
                         update: jest.fn(),
+                        findByRefreshToken: jest.fn(),
                     }
                 }
             ],
@@ -103,11 +104,48 @@ describe('AuthService', () => {
         });
 
         expect(result).toEqual({
-            ...{ refreshToken: 'fake-token' },
-            ...{ accessToken: 'fake-token' },
-            ...oneUser
+            ...{
+                refreshToken: 'fake-token',
+                accessToken: 'fake-token'
+            }, ...oneUser
         });
-        expect(jwt.signAsync).toBeCalled();
+        expect(users.findByEmail).toBeCalled();
+        expect(refreshSession.create).toBeCalled();
+        expect(jwt.decode).toBeCalled();
+        expect(jwt.decode).toBeCalled();
+    });
+
+    it('should refresh a user session', async () => {
+        jest.spyOn(users, 'findByEmail')
+            .mockReturnValue(new Promise((resolve) => resolve(oneUser as User)));
+        jest.spyOn(refreshSession, 'findByRefreshToken')
+            .mockReturnValue(new Promise((resolve) => resolve({} as RefreshSession)));
+        jest.spyOn(jwt, 'verify')
+            .mockReturnValue(new Promise((resolve) => resolve({
+                username: 'john@example.com',
+            })));
+        jest.spyOn(jwt, 'signAsync')
+            .mockReturnValue(new Promise((resolve) => resolve('fake-token')));
+        jest.spyOn(jwt, 'decode')
+            .mockReturnValue(new Promise((resolve) => resolve({
+                username: 'john@example.com',
+                exp: 1234567890,
+                iat: 1234567890,
+            })));
+
+        const result = await service.refreshToken('fake-token');
+
+        oneUser['refreshToken'] = 'fake-token';
+
+        expect(result).toEqual({
+            ...{
+                refreshToken: 'fake-token',
+                accessToken: 'fake-token'
+            }, ...oneUser
+        });
+        expect(users.findByEmail).toBeCalled();
+        expect(refreshSession.findByRefreshToken).toBeCalled();
+        expect(jwt.decode).toBeCalled();
         expect(jwt.decode).toBeCalled();
     });
 

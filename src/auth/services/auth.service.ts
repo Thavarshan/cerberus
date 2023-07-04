@@ -60,7 +60,7 @@ export class AuthService implements AuthServiceInterface {
 
         await this.createRefreshSession(user, refreshToken);
 
-        return { accessToken, refreshToken, ...user };
+        return { ...user, accessToken, refreshToken };
     }
 
     /**
@@ -70,7 +70,7 @@ export class AuthService implements AuthServiceInterface {
      *
      * @returns {Promise<any>}
      */
-    public async refreshTokens (token: string): Promise<any> {
+    public async refreshToken (token: string): Promise<any> {
         let decodedToken: any = undefined;
 
         try {
@@ -96,7 +96,7 @@ export class AuthService implements AuthServiceInterface {
 
         await this.updateRefreshSession(session, refreshToken);
 
-        return { user, accessToken, refreshToken };
+        return { ...user, accessToken, refreshToken };
     }
 
     /**
