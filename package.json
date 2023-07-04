@@ -1,6 +1,6 @@
 {
     "name": "cerberus",
-    "version": "1.0.1",
+    "version": "0.1.0",
     "description": "The Cerberus IAM Platform.",
     "private": true,
     "license": "MIT",
