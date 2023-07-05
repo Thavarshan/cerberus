@@ -1,4 +1,4 @@
-import { Roles } from '@/users/enums/roles.enum';
+import { Role } from '@/users/entities/role.entity';
 import { RefreshSession } from '../auth/refresh-session.entity';
 
 export interface User {
@@ -8,7 +8,7 @@ export interface User {
     email: string;
     password: string;
     phone?: string;
-    role?: Roles;
+    role?: Partial<Role>;
     verified: boolean;
     loginAttempts?: number;
     blockedAt?: Date;

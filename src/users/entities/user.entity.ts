@@ -1,7 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index, OneToMany } from 'typeorm';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    Index,
+    OneToMany,
+    OneToOne
+} from 'typeorm';
 import { User as UserInterface } from '@/interfaces/users/user.entity';
-import { Roles } from '../enums/roles.enum';
 import { RefreshSession } from '@/auth/entities/refresh-session.entity';
+import { Role } from './role.entity';
 
 @Entity({ name: 'users' })
 export class User implements UserInterface {
@@ -26,8 +33,9 @@ export class User implements UserInterface {
     @Column({ type: 'varchar', nullable: true })
     public phone?: string;
 
-    @Column({ type: 'varchar', nullable: false, default: Roles.USER })
-    public role?: Roles;
+    @Column({ type: 'int', nullable: false })
+    @OneToOne(() => Role, role => role.users, { onDelete: 'SET NULL' })
+    public role?: Partial<Role>;
 
     @Column({ type: 'boolean', nullable: true, default: false })
     public verified: boolean;

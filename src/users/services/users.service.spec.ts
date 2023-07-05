@@ -3,19 +3,22 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { UsersService } from './users.service';
 import { Repository } from 'typeorm';
+import { Role } from '../entities/role.entity';
 
 const userArray = [
     {
         name: 'John Doe',
         username: 'johndoe',
         email: 'john@example.com',
-        password: 'secret'
+        password: 'secret',
+        role: 1
     },
     {
         name: 'Jane Doe',
         username: 'joanedoe',
         email: 'jane@example.com',
-        password: 'secret'
+        password: 'secret',
+        role: 1
     },
 ];
 
@@ -23,7 +26,8 @@ const oneUser = {
     name: 'John Doe',
     username: 'johndoe',
     email: 'john@example.com',
-    password: 'secret'
+    password: 'secret',
+    role: 1
 };
 
 describe('UsersService', () => {
@@ -63,7 +67,8 @@ describe('UsersService', () => {
             name: 'John Doe',
             username: 'johndoe',
             email: 'john@example.com',
-            password: 'secret'
+            password: 'secret',
+            role: 1 as Partial<Role>
         })).resolves.toEqual(oneUser);
 
         expect(repoSpy).toBeCalled();

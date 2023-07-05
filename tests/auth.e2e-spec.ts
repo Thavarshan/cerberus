@@ -4,6 +4,7 @@ import { Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { expect } from 'chai';
 import * as request from 'supertest';
+import { UsersModule } from '../src/users/users.module';
 
 describe('Auth - /auth (e2e)', () => {
     let app: INestApplication;
@@ -12,6 +13,7 @@ describe('Auth - /auth (e2e)', () => {
         const modRef = await Test.createTestingModule({
             imports: [
                 AuthModule,
+                UsersModule,
                 TypeOrmModule.forRoot({
                     type: 'mysql',
                     host: '127.0.0.1',

@@ -5,6 +5,7 @@ import { info } from 'console';
 import { LoggerService } from '@/logger/services/logger.service';
 import corsConfig from '@/config/cors.config';
 import { ConfigService } from '@nestjs/config';
+import { App } from './app/enums/app.enum';
 
 async function bootstrap () {
     const app = await NestFactory.create(AppModule);
@@ -21,11 +22,11 @@ async function bootstrap () {
 
     const config = app.get(ConfigService);
 
-    const post = config.get<number>('app.port') || 3000;
+    const port = config.get<number>('app.port') || App.PORT;
 
-    await app.listen(post);
+    await app.listen(port);
 
-    info(`App URL accessible on http://localhost:${post}`);
+    info(`App URL accessible on http://localhost:${port}`);
 }
 
 bootstrap();

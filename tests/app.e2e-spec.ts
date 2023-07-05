@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from '@/app/app.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-describe('AppController (e2e)', () => {
+describe('App - /app (e2e)', () => {
     let app: INestApplication;
 
     beforeEach(async () => {
