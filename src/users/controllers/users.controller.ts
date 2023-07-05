@@ -14,7 +14,6 @@ import { UsersService } from '../services/users.service';
 import { User } from '@/interfaces/users/user.entity';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
-// import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -40,7 +39,6 @@ export class UsersController {
         return this.service.create(dto);
     }
 
-    // @UseGuards(JwtAuthGuard)
     @Get()
     public async findAll (): Promise<{ [key: string]: User[]; }> {
         const data = await this.service.findAll();
@@ -48,13 +46,11 @@ export class UsersController {
         return { data };
     }
 
-    // @UseGuards(JwtAuthGuard)
     @Get(':id')
     public async findOne (@Param('id') id: string): Promise<User> {
         return await this.service.findOne(id);
     }
 
-    // @UseGuards(JwtAuthGuard)
     @Patch(':id')
     public async update (
         @Param('id') id: string,
@@ -64,7 +60,6 @@ export class UsersController {
     }
 
     @HttpCode(HttpStatus.NO_CONTENT)
-    // @UseGuards(JwtAuthGuard)
     @Delete(':id')
     public async delete (@Param('id') id: string): Promise<void> {
         await this.service.delete(id);
