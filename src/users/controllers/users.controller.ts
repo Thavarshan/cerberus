@@ -14,6 +14,7 @@ import { UsersService } from '../services/users.service';
 import { User } from '@/interfaces/users/user.entity';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { UserQuery } from '../decorators/user-query.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -40,8 +41,10 @@ export class UsersController {
     }
 
     @Get()
-    public async findAll (): Promise<{ [key: string]: User[]; }> {
-        const data = await this.service.findAll();
+    public async findAll (
+        @UserQuery() query: { [key: string]: any; }
+    ): Promise<{ [key: string]: User[]; }> {
+        const data = await this.service.findAll(query);
 
         return { data };
     }

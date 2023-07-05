@@ -48,4 +48,14 @@ export class User implements UserInterface {
 
     @OneToMany(() => RefreshSession, refreshSession => refreshSession.user)
     public sessions?: Partial<RefreshSession>[];
+
+    /**
+     * The list of keys that can be used to filter the query.
+     *
+     * @var {string[]}
+     */
+    public static filterKeys = [
+        'username',
+        'email',
+    ];
 }

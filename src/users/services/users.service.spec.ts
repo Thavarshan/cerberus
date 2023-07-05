@@ -47,7 +47,7 @@ describe('UsersService', () => {
                         update: jest.fn(),
                         delete: jest.fn(),
                     },
-                },
+                }
             ],
         }).compile();
 
