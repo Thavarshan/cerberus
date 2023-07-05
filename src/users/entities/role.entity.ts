@@ -35,7 +35,7 @@ export class Role implements RoleInterface {
     public slug: string;
 
     @OneToMany(() => User, user => user.sessions, { onDelete: 'CASCADE' })
-    public users: Partial<User>[];
+    public users?: Partial<User>[];
 
     @BeforeInsert()
     @BeforeUpdate()
