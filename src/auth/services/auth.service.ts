@@ -156,7 +156,7 @@ export class AuthService implements AuthServiceInterface {
      *
      * @returns {Promise<void>}
      */
-    public async updateRefreshSession (
+    protected async updateRefreshSession (
         session: RefreshSession,
         refreshToken: string
     ): Promise<void> {

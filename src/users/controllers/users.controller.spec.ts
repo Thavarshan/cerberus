@@ -18,7 +18,6 @@ describe('UsersController', () => {
         const app: TestingModule = await Test.createTestingModule({
             controllers: [UsersController],
             providers: [
-                UsersService,
                 {
                     provide: UsersService,
                     useValue: {
@@ -65,7 +64,6 @@ describe('UsersController', () => {
     });
 
     it('should create a user', () => {
-        controller.create(createUserDto);
         expect(controller.create(createUserDto)).resolves.toEqual({
             id: '1',
             ...createUserDto,
