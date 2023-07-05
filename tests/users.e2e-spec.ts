@@ -50,7 +50,7 @@ describe('Users - /users (e2e)', () => {
                     blockedAt: null,
                     loginAttempts: 0,
                     phone: null,
-                    role: '1',
+                    role: 1,
                     verified: false,
                 });
             });

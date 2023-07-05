@@ -1,7 +1,8 @@
 import { RoleDto } from '@/users/dto/role.dto';
+import { OnModuleInit } from '@nestjs/common';
 import { Role } from './role.entity';
 
-export interface RolesService {
+export interface RolesService extends OnModuleInit {
     /**
      * Create new role and persist to database.
      *

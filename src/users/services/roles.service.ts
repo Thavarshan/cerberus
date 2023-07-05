@@ -7,6 +7,8 @@ import { UpdateRoleDto } from '../dto/update-role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleAlreadyExistsException } from '../exceptions/role-already-exists.exception';
 import { Role } from '../entities/role.entity';
+import { Roles } from '../enums/roles.enum';
+import slugify from 'slugify';
 
 @Injectable()
 export class RolesService implements RolesServiceInterface {
@@ -21,6 +23,25 @@ export class RolesService implements RolesServiceInterface {
         @InjectRepository(Role)
         protected readonly repository: RolesRepository
     ) { }
+
+    /**
+     * Run when the application is initialized.
+     *
+     * @returns {Promise<void>}
+     */
+    public async onModuleInit (): Promise<void> {
+        for (const role in Roles) {
+            try {
+                await this.create({
+                    name: role,
+                    slug: slugify(role),
+                    description: `User with role ${role}.`
+                });
+            } catch (error) {
+                continue;
+            }
+        }
+    }
 
     /**
      * Create new role and persist to database.
