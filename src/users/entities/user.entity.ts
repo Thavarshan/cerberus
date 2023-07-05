@@ -59,5 +59,6 @@ export class User implements UserInterface {
     public static filterKeys = [
         'username',
         'email',
+        'role'
     ];
 }
