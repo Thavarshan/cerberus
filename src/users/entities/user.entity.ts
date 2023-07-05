@@ -4,7 +4,8 @@ import {
     PrimaryGeneratedColumn,
     Index,
     OneToMany,
-    OneToOne
+    OneToOne,
+    JoinColumn
 } from 'typeorm';
 import { User as UserInterface } from '@/interfaces/users/user.entity';
 import { RefreshSession } from '@/auth/entities/refresh-session.entity';
@@ -35,6 +36,7 @@ export class User implements UserInterface {
 
     @Column({ type: 'int', nullable: false })
     @OneToOne(() => Role, role => role.users, { onDelete: 'SET NULL' })
+    @JoinColumn()
     public role?: Partial<Role>;
 
     @Column({ type: 'boolean', nullable: true, default: false })
