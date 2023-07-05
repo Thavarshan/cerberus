@@ -72,7 +72,7 @@ describe('UsersController', () => {
     });
 
     it('should find all users', () => {
-        controller.findAll();
+        controller.findAll({});
 
         expect(service.findAll).toHaveBeenCalled();
     });

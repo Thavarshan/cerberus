@@ -44,10 +44,14 @@ export class UsersService implements UsersServiceInterface {
     /**
      * Query the database for all users.
      *
+     * @param {object|undefined} query
+     *
      * @returns {Promise<UserInterface[]>}
      */
-    public async findAll (): Promise<UserInterface[]> {
-        return await this.repository.find();
+    public async findAll (
+        query?: { [key: string]: any; }
+    ): Promise<UserInterface[]> {
+        return await this.repository.find({ where: query });
     }
 
     /**

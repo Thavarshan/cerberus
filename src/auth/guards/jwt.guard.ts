@@ -15,6 +15,16 @@ import { Auth } from '../enums/auth.enum';
 
 @Injectable()
 export class JwtGuard implements CanActivate {
+    /**
+     * Create new JwtGuard instance.
+     *
+     * @param {ConfigType<typeof authConfig>} config
+     * @param {JwtService} jwt
+     * @param {UsersService} users
+     * @param {Reflector} reflector
+     *
+     * @returns {void}
+     */
     constructor (
         @Inject(authConfig.KEY)
         protected readonly config: ConfigType<typeof authConfig>,
@@ -23,11 +33,19 @@ export class JwtGuard implements CanActivate {
         protected readonly reflector: Reflector
     ) { }
 
+    /**
+     * Handle authentication of incoming request.
+     *
+     * @param {ExecutionContext} context
+     *
+     * @returns {Promise<boolean>}
+     */
     public async canActivate (context: ExecutionContext): Promise<boolean> {
-        const isPublic = this.reflector.getAllAndOverride<boolean>(Auth.IS_PUBLIC_KEY, [
-            context.getHandler(),
-            context.getClass(),
-        ]);
+        const isPublic = this.reflector
+            .getAllAndOverride<boolean>(Auth.IS_PUBLIC_KEY, [
+                context.getHandler(),
+                context.getClass(),
+            ]);
 
         if (isPublic) {
             // 💡 See this condition
@@ -60,6 +78,13 @@ export class JwtGuard implements CanActivate {
         return true;
     }
 
+    /**
+     * Extract token from request header.
+     *
+     * @param {Request} request
+     *
+     * @returns {string | undefined}
+     */
     protected extractTokenFromHeader (request: Request): string | undefined {
         const [type, token] = request.headers.authorization?.split(' ') ?? [];
 

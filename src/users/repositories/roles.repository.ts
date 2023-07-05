@@ -5,7 +5,7 @@ import { Role } from '../entities/role.entity';
 @Injectable()
 export class RolesRepository extends Repository<Role> {
     /**
-     * Query the database for all users.
+     * Query the database for all roles.
      *
      * @returns {Promise<Role[]>}
      */
