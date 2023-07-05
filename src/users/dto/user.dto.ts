@@ -6,9 +6,10 @@ import {
     Matches,
     MaxLength,
     MinLength,
-    IsBoolean
+    IsBoolean,
+    IsNumber
 } from 'class-validator';
-import { Roles } from '../enums/roles.enum';
+import { Role } from '../entities/role.entity';
 
 export class UserDto {
     @IsNotEmpty()
@@ -40,10 +41,8 @@ export class UserDto {
     public readonly phone?: string;
 
     @IsOptional()
-    @IsString()
-    @MinLength(3)
-    @MaxLength(1024)
-    public readonly role?: Roles;
+    @IsNumber()
+    public role?: Partial<Role>;
 
     @IsOptional()
     @IsBoolean()

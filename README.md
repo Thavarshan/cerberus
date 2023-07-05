@@ -63,7 +63,7 @@ YYYY-MM-DDTHH:MM:SSZ
 Many API methods take optional parameters. For `GET` requests, any parameters not specified as a segment in the path can be passed as an `HTTP` query string parameter:
 
 ```bash
-curl -i "https://cerberus.onrender.com/customers/feed?type=single_measurement_highlight"
+curl -i "https://cerberus.onrender.com/users?role=customers"
 ```
 
 For `POST`, `PATCH`, `PUT`, and `DELETE` requests, parameters not included in the URL should be encoded as JSON with a `Content-Type` of 'application/json':
@@ -146,7 +146,7 @@ curl --location --request POST 'https://cerberus.onrender.com/login' \
 Status: 200 OK
 ```
 
-```json=
+```json
 {
     "id": "79654f5d-b457-401d-8271-c1085492c336",
     "name": "Malcom Cormac",
@@ -189,7 +189,7 @@ curl -v -H "Authorization: Bearer <TOKEN>" https://cerberus.onrender.com
 
 To generate a JWT token a user must first login through basic authentication by use of `email` and `password`. The response should return access and refresh tokens in the response body.
 
-```json=
+```json
 {
     "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbWFjcm9hY3RpdmlzdHMtYXBpLm1hY3JvYWN0aXZlbXZwLmNvbVwvYXBpXC92MVwvbG9naW4iLCJpYXQiOjE2Mzg0MTk0MjYsImV4cCI6MTYzODU5MjIyNiwibmJmIjoxNjM4NDE5NDI2LCJqdGkiOiIzWTBLVnduQjJ6SHJHakVLIiwic3ViIjoiNjFhNzNhYWUwZjZlZmM1M2E3Njg2MjIzIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.iZKRwbm9LE_8J4i-BfZ_tlpL-DcPcY7iUQ4rCVaB1cc",
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OTY1NGY1ZC1iNDU3LTQwMWQtODI3MS1jMTA4NTQ5MmMzMzYiLCJ1c2VybmFtZSI6Im1hbGNvbUBleGFtcGxlLmNvbSIsImlhdCI6MTY4ODQ2NTE3OCwiZXhwIjoxNjkxMDU3MTc4fQ.loX67X4Dfr9lj1HKTjgU517-35G_iBMm61kOEHnOKnA"
@@ -220,7 +220,7 @@ POST /refresh
 Status: 200 OK
 ```
 
-```json=
+```json
 {
     "id": "79654f5d-b457-401d-8271-c1085492c336",
     "name": "Malcom Cormac",

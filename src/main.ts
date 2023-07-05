@@ -21,11 +21,11 @@ async function bootstrap () {
 
     const config = app.get(ConfigService);
 
-    const post = config.get<number>('app.port') || 3000;
+    const port = config.get<number>('app.port') || 3000;
 
-    await app.listen(post);
+    await app.listen(port);
 
-    info(`App URL accessible on http://localhost:${post}`);
+    info(`App URL accessible on http://localhost:${port}`);
 }
 
 bootstrap();

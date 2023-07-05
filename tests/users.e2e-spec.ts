@@ -4,6 +4,7 @@ import * as request from 'supertest';
 import { UsersModule } from '../src/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CreateUserDto } from '../src/users/dto/create-user.dto';
+import { Role } from '@/users/entities/role.entity';
 
 describe('Users - /users (e2e)', () => {
     const users = {
@@ -11,7 +12,8 @@ describe('Users - /users (e2e)', () => {
         name: 'John Doe E2E',
         username: 'johnDoeE2E',
         email: 'john.e2e@example.com',
-        password: 'secret123e2e'
+        password: 'secret123e2e',
+        role: 1 as Partial<Role>
     };
 
     let app: INestApplication;
@@ -37,7 +39,7 @@ describe('Users - /users (e2e)', () => {
         await app.init();
     });
 
-    it('Create [POST /users]', () => {
+    it('Create [POST /users]', async () => {
         return request(app.getHttpServer())
             .post('/users')
             .send(users as CreateUserDto)
@@ -48,13 +50,13 @@ describe('Users - /users (e2e)', () => {
                     blockedAt: null,
                     loginAttempts: 0,
                     phone: null,
-                    role: 'user',
+                    role: '1',
                     verified: false,
                 });
             });
     });
 
-    it('Get all users [GET /users]', () => {
+    it('Get all users [GET /users]', async () => {
         return request(app.getHttpServer())
             .get('/users')
             .expect(200)
@@ -63,7 +65,7 @@ describe('Users - /users (e2e)', () => {
             });
     });
 
-    it('Get one user [GET /users/:id]', () => {
+    it('Get one user [GET /users/:id]', async () => {
         return request(app.getHttpServer())
             .get('/users/16358eb1-9860-4ee6-a105-76a02d98386f')
             .expect(200)
@@ -73,7 +75,9 @@ describe('Users - /users (e2e)', () => {
     });
 
     it('Delete one user [DELETE /users/:id]', () => {
-        return request(app.getHttpServer()).delete('/users/16358eb1-9860-4ee6-a105-76a02d98386f').expect(204);
+        return request(app.getHttpServer())
+            .delete('/users/16358eb1-9860-4ee6-a105-76a02d98386f')
+            .expect(204);
     });
 
     afterAll(async () => {
