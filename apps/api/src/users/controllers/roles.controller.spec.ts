@@ -2,10 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CreateRoleDto } from '../dto/create-role.dto';
 import { RolesController } from './roles.controller';
 import { RolesService } from '../services/roles.service';
-import { Roles } from '../enums/roles.enum';
+import { Role as RoleEnum } from '../enums/role.enum';
 
 const createRoleDto: CreateRoleDto = {
-    name: Roles.USER,
+    name: RoleEnum.USER,
     slug: 'fake-slug-12938723-3'
 };
 
@@ -28,17 +28,17 @@ describe('RolesController', () => {
                             ),
                         findAll: jest.fn().mockResolvedValue([
                             {
-                                name: Roles.CUSTOMER,
+                                name: RoleEnum.CUSTOMER,
                                 slug: 'fake-slug-12938723-1'
                             },
                             {
-                                name: Roles.ADMIN,
+                                name: RoleEnum.ADMIN,
                                 slug: 'fake-slug-12938723-2'
                             },
                         ]),
                         findOne: jest.fn().mockImplementation((id: string) =>
                             Promise.resolve({
-                                name: Roles.USER,
+                                name: RoleEnum.USER,
                                 slug: 'fake-slug-12938723-3',
                                 id,
                             }),
@@ -74,7 +74,7 @@ describe('RolesController', () => {
 
     it('should find a role', () => {
         expect(controller.findOne(1)).resolves.toEqual({
-            name: Roles.USER,
+            name: RoleEnum.USER,
             slug: 'fake-slug-12938723-3',
             id: 1,
         });

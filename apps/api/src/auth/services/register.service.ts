@@ -4,7 +4,7 @@ import { RegisterUserDto } from '../dto/register.dto';
 import { hash, genSalt } from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 import { Auth } from '../enums/auth.enum';
-import { Roles } from '@/users/enums/roles.enum';
+import { Role as RoleEnum } from '@/users/enums/role.enum';
 import { RolesService } from '@/users/services/roles.service';
 import { Role } from '@/interfaces/users/role.entity';
 
@@ -58,6 +58,6 @@ export class RegisterService {
      * @returns {Promise<Role>}
      */
     protected async setDefaultRole (): Promise<Role> {
-        return await this.roles.findByName(Roles.USER);
+        return await this.roles.findByName(RoleEnum.USER);
     }
 }

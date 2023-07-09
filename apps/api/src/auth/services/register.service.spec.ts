@@ -20,7 +20,7 @@ import { UsersService } from '../../users/services/users.service';
 import { RolesService } from '../../users/services/roles.service';
 import { RegisterService } from './register.service';
 import { Role } from '../../users/entities/role.entity';
-import { Roles } from '../../users/enums/roles.enum';
+import { Role as RoleEnum } from '@/users/enums/role.enum';
 
 const oneUser = {
     name: 'John Doe',
@@ -69,7 +69,7 @@ describe('RegisterService', () => {
         const rolesSpy = jest.spyOn(roles, 'findByName')
             .mockReturnValue(new Promise((resolve) => resolve({
                 id: 1,
-                name: Roles.USER,
+                name: RoleEnum.USER,
                 slug: 'user',
                 users: null
             } as any)));

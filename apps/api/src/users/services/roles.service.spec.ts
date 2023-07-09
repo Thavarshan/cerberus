@@ -3,21 +3,21 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Role } from '../entities/role.entity';
 import { RolesService } from './roles.service';
 import { Repository } from 'typeorm';
-import { Roles } from '../enums/roles.enum';
+import { Role as RoleEnum } from '../enums/role.enum';
 
 const roleArray = [
     {
-        name: Roles.CUSTOMER,
+        name: RoleEnum.CUSTOMER,
         slug: 'fake-slug-12938723-1'
     },
     {
-        name: Roles.ADMIN,
+        name: RoleEnum.ADMIN,
         slug: 'fake-slug-12938723-2'
     },
 ];
 
 const oneRole = {
-    name: Roles.USER,
+    name: RoleEnum.USER,
     slug: 'fake-slug-12938723-3'
 };
 
@@ -55,7 +55,7 @@ describe('RolesService', () => {
             .mockReturnValue(new Promise((resolve) => resolve(undefined)));
 
         expect(service.create({
-            name: Roles.USER,
+            name: RoleEnum.USER,
             slug: 'fake-slug-12938723-3'
         })).resolves.toEqual(oneRole);
 
@@ -81,10 +81,10 @@ describe('RolesService', () => {
             .mockReturnValue(new Promise((resolve) => resolve(oneRole as any)));
         const updateSpy = jest.spyOn(repository, 'update')
             .mockReturnValue(new Promise((resolve) => (resolve(oneRole as any))));
-        const retVal = await service.update(2, { name: Roles.USER });
+        const retVal = await service.update(2, { name: RoleEnum.USER });
 
         expect(findOneSpy).toBeCalledWith({ id: 2 });
-        expect(updateSpy).toBeCalledWith(2, { name: Roles.USER });
+        expect(updateSpy).toBeCalledWith(2, { name: RoleEnum.USER });
         expect(retVal).toEqual(oneRole);
     });
 

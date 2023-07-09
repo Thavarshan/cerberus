@@ -1,0 +1,271 @@
+# Users
+
+## Get Users
+
+This endpoint can be used to retrieve all users from the database. This endpoint can only be accessed through **JWT** token.
+
+```
+GET /users
+```
+
+### Parameters
+
+| Name          | Type   | In     | Description                                            |
+| ------------- | ------ | ------ | ------------------------------------------------------ |
+| Authorization | string | header | **Required**. The JWT token of the authenticated user. |
+
+### Response
+
+```
+Status: 200 OK
+```
+
+```json
+{
+    "data": [
+        {
+            "id": "79654f5d-b457-401d-8271-c1085492c336",
+            "name": "Malcom Cormac",
+            "username": "mcCormac",
+            "email": "malcom@example.com",
+            "password": "$2b$10$B2U/7TOpABMQRbtGLki9JeQoMYie01VnAH4XpBwuk9MQEPQLILiO6",
+            "phone": null,
+            "role": "user",
+            "verified": false,
+            "loginAttempts": 0,
+            "blockedAt": null
+        },
+        {
+            "id": "e89906f4-fa9f-43e9-8175-4a059d0613db",
+            "name": "John Doe",
+            "username": "johnDoe",
+            "email": "john@example.com",
+            "password": "$2b$10$MFqyTXmKGLQrPbQFyJtiB.wFqXa5XQfOtikQWu5N6gVXTMNz6LDN2",
+            "phone": null,
+            "role": "user",
+            "verified": false,
+            "loginAttempts": 0,
+            "blockedAt": null
+        }
+    ]
+}
+```
+
+### Invalid JWT Token
+
+```
+Status: 401 Unauthorized
+```
+
+```json
+{
+    "statusCode": 401,
+    "message": "invalid token",
+    "error": "Unauthorized"
+}
+```
+
+## Get User
+
+This endpoint can be used to retrieve a specific user from the database. This endpoint can only be accessed through **JWT** token.
+
+```
+GET /users/{uuid}
+```
+
+### Parameters
+
+| Name          | Type   | In     | Description                                            |
+| ------------- | ------ | ------ | ------------------------------------------------------ |
+| Authorization | string | header | **Required**. The JWT token of the authenticated user. |
+| uuid          | string | path   | **Required**. The UUID of the user.                    |
+
+### Response
+
+```
+Status: 200 OK
+```
+
+```json
+{
+    "id": "79654f5d-b457-401d-8271-c1085492c336",
+    "name": "Malcom Cormac",
+    "username": "mcCormac",
+    "email": "malcom@example.com",
+    "password": "$2b$10$B2U/7TOpABMQRbtGLki9JeQoMYie01VnAH4XpBwuk9MQEPQLILiO6",
+    "phone": null,
+    "role": "user",
+    "verified": false,
+    "loginAttempts": 0,
+    "blockedAt": null
+}
+```
+
+### Invalid JWT Token
+
+```
+Status: 401 Unauthorized
+```
+
+```json
+{
+    "statusCode": 401,
+    "message": "invalid token",
+    "error": "Unauthorized"
+}
+```
+
+## Create User
+
+This endpoint can be used to create a new user and persist to the database. This endpoint can only be accessed through **JWT** token.
+
+```
+POST /users
+```
+
+### Parameters
+
+| Name          | Type   | In     | Description                                            |
+| ------------- | ------ | ------ | ------------------------------------------------------ |
+| Authorization | string | header | **Required**. The JWT token of the authenticated user. |
+| name          | string | body   | **Require**. The name of the user.                     |
+| username      | string | body   | **Require**. The username of the user.                 |
+| email         | string | body   | **Require**. The email of the user.                    |
+| password      | string | body   | **Require**. The password of the user.                 |
+| phone         | string | body   | **Optional**. The phone of the user.                   |
+| role          | string | body   | **Optional**. The role of the user.                    |
+| verified      | bool   | body   | **Optional**. The verified status of the user.         |
+| loginAttempts | int    | body   | **Optional**. The login attempts of the user.          |
+| blockedAt     | string | body   | **Optional**. The blocked at of the user.              |
+
+### Response
+
+```
+Status: 200 OK
+```
+
+```json
+{
+    "id": "79654f5d-b457-401d-8271-c1085492c336",
+    "name": "Malcom Cormac",
+    "username": "mcCormac",
+    "email": "malcom@example.com",
+    "password": "$2b$10$B2U/7TOpABMQRbtGLki9JeQoMYie01VnAH4XpBwuk9MQEPQLILiO6",
+    "phone": null,
+    "role": "user",
+    "verified": false,
+    "loginAttempts": 0,
+    "blockedAt": null
+}
+```
+
+### Invalid JWT Token
+
+```
+Status: 401 Unauthorized
+```
+
+```json
+{
+    "statusCode": 401,
+    "message": "invalid token",
+    "error": "Unauthorized"
+}
+```
+
+## Update User
+
+This endpoint can be used to update a specific user' information and save to the database. This endpoint can only be accessed through **JWT** token.
+
+```
+PATH /users/{uuid}
+```
+
+### Parameters
+
+| Name          | Type   | In     | Description                                            |
+| ------------- | ------ | ------ | ------------------------------------------------------ |
+| Authorization | string | header | **Required**. The JWT token of the authenticated user. |
+| name          | string | body   | **Optional**. The name of the user.                    |
+| username      | string | body   | **Optional**. The username of the user.                |
+| email         | string | body   | **Optional**. The email of the user.                   |
+| password      | string | body   | **Optional**. The password of the user.                |
+| phone         | string | body   | **Optional**. The phone of the user.                   |
+| role          | string | body   | **Optional**. The role of the user.                    |
+| verified      | bool   | body   | **Optional**. The verified status of the user.         |
+| loginAttempts | int    | body   | **Optional**. The login attempts of the user.          |
+| blockedAt     | string | body   | **Optional**. The blocked at of the user.              |
+
+### Response
+
+```
+Status: 200 OK
+```
+
+```json
+{
+    "id": "79654f5d-b457-401d-8271-c1085492c336",
+    "name": "Malcom Cormac",
+    "username": "mcCormac",
+    "email": "malcom@example.com",
+    "password": "$2b$10$B2U/7TOpABMQRbtGLki9JeQoMYie01VnAH4XpBwuk9MQEPQLILiO6",
+    "phone": null,
+    "role": "user",
+    "verified": false,
+    "loginAttempts": 0,
+    "blockedAt": null
+}
+```
+
+### Invalid JWT Token
+
+```
+Status: 401 Unauthorized
+```
+
+```json
+{
+    "statusCode": 401,
+    "message": "invalid token",
+    "error": "Unauthorized"
+}
+```
+
+## Delete User
+
+This endpoint can be used to delete a specific user from the database. This endpoint can only be accessed through **JWT** token.
+
+```
+DELETE /users/{uuid}
+```
+
+### Parameters
+
+| Name          | Type   | In     | Description                                            |
+| ------------- | ------ | ------ | ------------------------------------------------------ |
+| Authorization | string | header | **Required**. The JWT token of the authenticated user. |
+| uuid          | string | path   | **Required**. The UUID of the user.                    |
+
+### Response
+
+```
+Status: 204 No Content
+```
+
+```json
+{}
+```
+
+### Invalid JWT Token
+
+```
+Status: 401 Unauthorized
+```
+
+```json
+{
+    "statusCode": 401,
+    "message": "invalid token",
+    "error": "Unauthorized"
+}
+```

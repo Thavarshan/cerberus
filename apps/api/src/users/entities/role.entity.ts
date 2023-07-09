@@ -3,7 +3,7 @@ import { Role as RoleInterface } from '@/interfaces/users/role.entity';
 import slugify from 'slugify';
 import _ from 'lodash';
 import { User } from './user.entity';
-import { Roles } from '../enums/roles.enum';
+import { Role as RoleEnum } from '../enums/role.enum';
 
 @Entity({ name: 'roles' })
 export class Role implements RoleInterface {
@@ -16,8 +16,8 @@ export class Role implements RoleInterface {
         type: 'enum',
         nullable: false,
         unique: true,
-        enum: Roles,
-        default: Roles.USER
+        enum: RoleEnum,
+        default: RoleEnum.USER
     })
     public name: string;
 

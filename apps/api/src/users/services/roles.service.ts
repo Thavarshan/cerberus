@@ -7,7 +7,7 @@ import { UpdateRoleDto } from '../dto/update-role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleAlreadyExistsException } from '../exceptions/role-already-exists.exception';
 import { Role } from '../entities/role.entity';
-import { Roles } from '../enums/roles.enum';
+import { Role as Roles } from '../enums/role.enum';
 import slugify from 'slugify';
 
 @Injectable()

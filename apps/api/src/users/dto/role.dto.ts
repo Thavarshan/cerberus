@@ -4,12 +4,12 @@ import {
     IsOptional,
     IsEnum
 } from 'class-validator';
-import { Roles } from '../enums/roles.enum';
+import { Role } from '../enums/role.enum';
 
 export class RoleDto {
     @IsNotEmpty()
     @IsString()
-    @IsEnum(Roles)
+    @IsEnum(Role)
     public readonly name: string;
 
     @IsOptional()
