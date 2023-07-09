@@ -1,47 +1,62 @@
 name: Cerberus CI
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
   push:
-    branches: ['main', 'development']
   pull_request:
-    branches: ['main']
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   build:
+    name: Lint, Build and Test
+    timeout-minutes: 15
     runs-on: ubuntu-latest
 
     services:
-      mysql:
-        image: mysql:5.7
+      postgres:
+        # Docker Hub image
+        image: mongo:latest
+        # Provide the password for postgres
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: test
+          MONGODB_DATABASE: cerberus
         ports:
-          - 33306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          - 27017:27017
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 19.x]
+        node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
 
-    - name: Verify MySQL connection
-      run: |
-        mysql --version
-        sudo apt-get install -y mysql-client
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports[3306] }} -uroot -e "SHOW DATABASES"
+      - name: Setup yarn
+        run: npm install -g yarn
 
-    - run: npm i
-    - run: npm run lint
-    - run: npm run build --if-present
-    - run: npm test
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Copy .env file
+        working-directory: apps/api
+        run: cp .env.example .env
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn test
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          DB_URI: "mongodb://localhost/cerberus"
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
