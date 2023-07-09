@@ -24,7 +24,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [16.x, 18.x, 19.x]
 
     steps:
       - name: Check out code
@@ -36,26 +36,23 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
-
-      - name: Setup yarn
-        run: npm install -g yarn
+          cache: "npm"
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Copy .env file
         working-directory: apps/api
         run: cp .env.example .env
 
       - name: Lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Test
-        run: yarn test
+        run: npm test
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
           DB_URI: "mongodb://localhost/cerberus"

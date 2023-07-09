@@ -1,2 +1,0 @@
-export declare const UserQuery: (...dataOrPipes: (string | import("@nestjs/common").PipeTransform<any, any> | import("@nestjs/common").Type<import("@nestjs/common").PipeTransform<any, any>>)[]) => ParameterDecorator;
-//# sourceMappingURL=user-query.decorator.d.ts.map
